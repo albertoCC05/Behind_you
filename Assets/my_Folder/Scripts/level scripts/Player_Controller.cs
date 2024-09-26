@@ -11,7 +11,10 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float rotationPlayerSpeed;
     private float horizontalInput;
     private float verticalInput;
-    private bool isGameOver;
+
+    //Script references
+
+    private GameManager gameManager;
     
 
 
@@ -20,11 +23,11 @@ public class Player_Controller : MonoBehaviour
 
     private float losePositiveRotations = 0.90f;
     private float loseNegativeRotations = -0.90f;
-    [SerializeField] private GameObject gameOverPanel;
+    
 
     private void Start()
     {
-        gameOverPanel.SetActive(false);
+       gameManager = FindObjectOfType<GameManager>();
     }
     private void Update()
     {
@@ -67,9 +70,9 @@ public class Player_Controller : MonoBehaviour
 
         if (transform.rotation.y <= loseNegativeRotations || transform.rotation.y >= losePositiveRotations )
         {
-            Time.timeScale = 0;
-            gameOverPanel.SetActive(true);
-            isGameOver = true;
+
+            gameManager.SetGameOver();
+            
 
         }
     }

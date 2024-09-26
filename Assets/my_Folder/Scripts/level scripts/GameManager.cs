@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         uiManager = FindObjectOfType<UiManager>();
-        isGameOver = false;  
+        isGameOver = false;
+        Time.timeScale = 1;
     }
 
     public void SetGameOver()
     {
         isGameOver = true;
         uiManager.ShowGameOverPanel();
+        Time.timeScale = 0;
     }
 }
