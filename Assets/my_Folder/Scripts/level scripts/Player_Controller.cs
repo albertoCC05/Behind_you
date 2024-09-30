@@ -15,19 +15,21 @@ public class Player_Controller : MonoBehaviour
     //Script references
 
     private GameManager gameManager;
-    
+
 
 
 
     // prueba de game over
 
-    private float losePositiveRotations = 0.90f;
-    private float loseNegativeRotations = -0.90f;
+   
     
 
     private void Start()
     {
        gameManager = FindObjectOfType<GameManager>();
+      
+
+
     }
     private void Update()
     {
@@ -36,10 +38,13 @@ public class Player_Controller : MonoBehaviour
         GameOver();
 
         
+
+        
         
 
     }
 
+  
    
 
     private void PlayerMovment()
@@ -57,7 +62,36 @@ public class Player_Controller : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         
             transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
-        
+       
+       if ( horizontalInput > 0 )
+        {
+            float degrees = transform.rotation.eulerAngles.y;
+
+            if (degrees >= gameManager.positiveLoseRotation)
+            {
+                Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
+                //  Debug.Log(degrees);
+
+
+                 gameManager.SetGameOver();
+
+
+            }
+        }
+        if (horizontalInput < 0)
+        {
+            float degrees = transform.rotation.eulerAngles.y;
+
+            if (degrees <= gameManager.negativeLoseRotation)
+            {
+                Debug.Log("NegativeDetection");
+                // Debug.Log(degrees);
+                 gameManager.SetGameOver();
+
+
+            }
+        }
+
     }
 
  
@@ -66,13 +100,24 @@ public class Player_Controller : MonoBehaviour
 
     private void GameOver()
     {
-        
+        float degrees = transform.rotation.eulerAngles.y;
 
-        if (transform.rotation.y <= loseNegativeRotations || transform.rotation.y >= losePositiveRotations )
+        if ( degrees >= gameManager.positiveLoseRotation )
         {
-
-            gameManager.SetGameOver();
+            Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
+          //  Debug.Log(degrees);
             
+
+          //  gameManager.SetGameOver();
+
+
+        }
+        if (degrees <= gameManager.negativeLoseRotation )
+        {
+            Debug.Log("NegativeDetection");
+           // Debug.Log(degrees);
+            // gameManager.SetGameOver();
+
 
         }
     }
