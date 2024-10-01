@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrigerPoint : MonoBehaviour
 {
-    [SerializeField] private float rotationCange;
+    [SerializeField] private float newCurrentDirection;
 
     private Player_Controller playerControllerScript;
     private GameManager gameManagerScript;
@@ -20,10 +20,7 @@ public class TrigerPoint : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
            playerControllerScript.enabled = false;
-            gameManagerScript.RotatePlayer(rotationCange);
-            gameManagerScript.positiveLoseRotation = 180;
-            gameManagerScript.negativeLoseRotation = 0;
-            
+           gameManagerScript.RotatePlayer(newCurrentDirection); 
             
            StartCoroutine(EnablePlayerScript());
            
@@ -36,6 +33,7 @@ public class TrigerPoint : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         playerControllerScript.enabled = true;
+      
     }
 
 }

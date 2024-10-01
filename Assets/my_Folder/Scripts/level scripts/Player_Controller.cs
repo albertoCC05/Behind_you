@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -34,14 +36,8 @@ public class Player_Controller : MonoBehaviour
     private void Update()
     {
         PlayerMovment();
-        PlayerRotation();
-        GameOver();
-
-        
-
-        
-        
-
+        Rotation();
+     
     }
 
   
@@ -57,70 +53,56 @@ public class Player_Controller : MonoBehaviour
         }
     }
    
-    private void PlayerRotation()
+   
+
+    private void Rotation()
     {
+       // Debug.Log(transform.rotation.eulerAngles.y);
+
         horizontalInput = Input.GetAxis("Horizontal");
 
-        
-        
-            transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
+        transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
+
+        float currentDirectio = gameManager.currentDirection;
+        float loseDirectionLeft = gameManager.leftLoseRotation;
+        float loseDirectionRigth = gameManager.rigthLoseRotation;
+        float behindDirection = gameManager.behindDirection;
+        float playerDirection = transform.rotation.eulerAngles.y;
        
-       if ( gameManager.currentDirection < 360  )
+        if(currentDirectio == 180)
         {
-            float degrees = transform.rotation.eulerAngles.y;
-
-            if (degrees >= gameManager.positiveLoseRotation)
+            if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
             {
-               // Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
-                //  Debug.Log(degrees);
-
-
-                 gameManager.SetGameOver();
-
-
+                gameManager.SetGameOver();
+            }
+            if (playerDirection <= loseDirectionLeft && playerDirection >= 0)
+            {
+                gameManager.SetGameOver();
             }
         }
-        if (horizontalInput < -0.1f)
+        else
         {
-            float degrees = transform.rotation.eulerAngles.y;
-
-            if (degrees <= gameManager.negativeLoseRotation)
+            if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
             {
-                Debug.Log("NegativeDetection");
-                // Debug.Log(degrees);
-                 gameManager.SetGameOver();
-
-
+                gameManager.SetGameOver();
+            }
+            if (playerDirection <= loseDirectionLeft && playerDirection >= behindDirection)
+            {
+                gameManager.SetGameOver();
             }
         }
 
+        
+         
+        
+      
+
+     
     }
 
  
    
     
 
-    private void GameOver()
-    {
-        float degrees = transform.rotation.eulerAngles.y;
-
-        if ( degrees >= gameManager.positiveLoseRotation )
-        {
-            Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
-          //  Debug.Log(degrees);
-            
-
-          //  gameManager.SetGameOver();
-
-
-        }
-        if (degrees <= gameManager.negativeLoseRotation )
-        {
-            Debug.Log("NegativeDetection");
-           // Debug.Log(degrees);
-            // gameManager.SetGameOver();
-
-
-        }
-    }
+   
 }

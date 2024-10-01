@@ -1495,8 +1495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReference: {fileID: 127412046}
-  positiveLoseRotation: 0
-  negativeLoseRotation: 0
+  leftLoseRotation: 0
+  rigthLoseRotation: 0
+  currentDirection: 0
+  behindDirection: 0
 --- !u!4 &725459872
 Transform:
   m_ObjectHideFlags: 0
@@ -2340,7 +2342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb65858af30f484eb50ec163206d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationCange: 90
+  newCurrentDirection: 90
 --- !u!1 &1136474864
 GameObject:
   m_ObjectHideFlags: 0

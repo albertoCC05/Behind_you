@@ -6,12 +6,14 @@ public class GameManager : MonoBehaviour
 {
     private bool isGameOver;
     private UiManager uiManager;
+    private TrigerPoint trigerPointScript;
 
     [SerializeField] private GameObject playerReference;
 
-    public float positiveLoseRotation;
-    public float negativeLoseRotation;
+    public float leftLoseRotation;
+    public float rigthLoseRotation;
     public float currentDirection;
+    public float behindDirection;
     
 
 
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour
     public void RotatePlayer(float rotationChange)
     {
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, playerReference.transform.rotation.y + rotationChange, playerReference.transform.rotation.z);
-       // SetLoseAngles();
+        currentDirection = playerReference.transform.rotation.eulerAngles.y;
+        SetAngles();
     }
 
     private void StartSetLoseAngles()
@@ -37,23 +40,62 @@ public class GameManager : MonoBehaviour
         // positiveLoseRotation = (playerReference.transform.rotation.eulerAngles.y + 0.90f) * Mathf.Rad2Deg;
         // negativeLoseRotation = (playerReference.transform.rotation.eulerAngles.y  - 0.90f) * Mathf.Rad2Deg; 
 
-        positiveLoseRotation = 90;
-        negativeLoseRotation = 270;
         currentDirection = 360;
+        leftLoseRotation = 270;
+        rigthLoseRotation = 90;
+        behindDirection = 180;
 
-        Debug.Log(positiveLoseRotation);
-        Debug.Log(negativeLoseRotation);
+        
     }
-    public void SetLoseAngles()
+    public void SetAngles()
     {
-        positiveLoseRotation = playerReference.transform.rotation.eulerAngles.y + 90;
-        negativeLoseRotation = playerReference.transform.rotation.eulerAngles.y - 90;
 
-        Debug.Log(positiveLoseRotation);
-        Debug.Log(negativeLoseRotation);
+        if (currentDirection == 360)
+        {
+            leftLoseRotation = 270;
+            rigthLoseRotation = 90;
+            behindDirection = 180;
+        }
+        if (currentDirection == 180)
+        {
+            rigthLoseRotation = 270;
+            leftLoseRotation = 90;
+            behindDirection = 360;
+        }
+
+        if (currentDirection == 270)
+        {
+            rigthLoseRotation = 0;
+            leftLoseRotation = 180;
+            behindDirection = 90;
+
+        }
+
+        if (currentDirection == 90)
+        {
+            leftLoseRotation = 360;
+            rigthLoseRotation = 180;
+            behindDirection = 270;
+        }
+
+
+        
+
+       // if ( leftLoseRotation == 0 )
+        {
+            // leftLoseRotation = 360;
+        }
+      //  if (rigthLoseRotation == 0)
+        {
+          //  rigthLoseRotation = 360;
+        }
+
+
+        Debug.Log(leftLoseRotation);
+        Debug.Log(rigthLoseRotation);
+        Debug.Log(behindDirection);
+
     }
-
-
     public void SetGameOver()
     {
         isGameOver = true;
