@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
 
     public float positiveLoseRotation;
     public float negativeLoseRotation;
+    public float currentDirection;
+    
+
+
+    
     
 
     private void Start()
@@ -34,6 +39,7 @@ public class GameManager : MonoBehaviour
 
         positiveLoseRotation = 90;
         negativeLoseRotation = 270;
+        currentDirection = 360;
 
         Debug.Log(positiveLoseRotation);
         Debug.Log(negativeLoseRotation);

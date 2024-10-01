@@ -60,16 +60,18 @@ public class Player_Controller : MonoBehaviour
     private void PlayerRotation()
     {
         horizontalInput = Input.GetAxis("Horizontal");
+
+        
         
             transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
        
-       if ( horizontalInput > 0 )
+       if ( gameManager.currentDirection < 360  )
         {
             float degrees = transform.rotation.eulerAngles.y;
 
             if (degrees >= gameManager.positiveLoseRotation)
             {
-                Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
+               // Debug.Log($"PositiveDetection{gameManager.positiveLoseRotation} AAAA {transform.rotation.eulerAngles.y}");
                 //  Debug.Log(degrees);
 
 
@@ -78,7 +80,7 @@ public class Player_Controller : MonoBehaviour
 
             }
         }
-        if (horizontalInput < 0)
+        if (horizontalInput < -0.1f)
         {
             float degrees = transform.rotation.eulerAngles.y;
 
