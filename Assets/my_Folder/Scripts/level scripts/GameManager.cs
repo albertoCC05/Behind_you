@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public float rigthLoseRotation;
     public float currentDirection;
     public float behindDirection;
+
+    public float currentDirection2;
     
 
 
@@ -26,20 +28,25 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         Time.timeScale = 1;
         StartSetLoseAngles();
+        Debug.Log(currentDirection2);
     }
 
     public void RotatePlayer(float rotationChange)
     {
-        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, playerReference.transform.rotation.y + rotationChange, playerReference.transform.rotation.z);
+        
+        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection2 + rotationChange, playerReference.transform.rotation.z);
+       
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
+        currentDirection2 = playerReference.transform.rotation.y;
         SetAngles();
     }
-
+   
     private void StartSetLoseAngles()
     {
         // positiveLoseRotation = (playerReference.transform.rotation.eulerAngles.y + 0.90f) * Mathf.Rad2Deg;
         // negativeLoseRotation = (playerReference.transform.rotation.eulerAngles.y  - 0.90f) * Mathf.Rad2Deg; 
 
+        currentDirection2 = playerReference.transform.rotation.y;
         currentDirection = 360;
         leftLoseRotation = 270;
         rigthLoseRotation = 90;
@@ -49,6 +56,9 @@ public class GameManager : MonoBehaviour
     }
     public void SetAngles()
     {
+       
+
+       
 
         if (currentDirection == 360)
         {
@@ -78,7 +88,7 @@ public class GameManager : MonoBehaviour
             behindDirection = 270;
         }
 
-
+        Debug.Log(currentDirection2);
         
 
        // if ( leftLoseRotation == 0 )
@@ -91,9 +101,8 @@ public class GameManager : MonoBehaviour
         }
 
 
-        Debug.Log(leftLoseRotation);
-        Debug.Log(rigthLoseRotation);
-        Debug.Log(behindDirection);
+      
+       
 
     }
     public void SetGameOver()

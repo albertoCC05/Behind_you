@@ -8,6 +8,7 @@ public class TrigerPoint : MonoBehaviour
 
     private Player_Controller playerControllerScript;
     private GameManager gameManagerScript;
+    private bool rotationChanged = false;
 
     private void Start()
     {
@@ -17,23 +18,30 @@ public class TrigerPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && rotationChanged == false)
         {
-           playerControllerScript.enabled = false;
-           gameManagerScript.RotatePlayer(newCurrentDirection); 
-            
-           StartCoroutine(EnablePlayerScript());
+            rotationChanged = true;
+            Debug.Log("Hello");
+
+            playerControllerScript.enabled = false;
+            gameManagerScript.RotatePlayer(newCurrentDirection);
+
+            StartCoroutine(EnablePlayerScript());
+
+
            
-
-
         }
+       
+   
     }
+ 
     private IEnumerator EnablePlayerScript()
     {
         yield return new WaitForSeconds(1);
 
         playerControllerScript.enabled = true;
-      
+        rotationChanged = false;
+
     }
 
 }
