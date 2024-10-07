@@ -17,19 +17,23 @@ public class Player_Controller : MonoBehaviour
     //Script references
 
     private GameManager gameManager;
+    private TrigerPoint triggerPointScript;
+
+
+    //
+
+  [SerializeField]  private LayerMask doorLayerMask;
 
 
 
 
-    // prueba de game over
 
-   
-    
 
     private void Start()
     {
        gameManager = FindObjectOfType<GameManager>();
-      
+       triggerPointScript = FindObjectOfType<TrigerPoint>();
+
 
 
     }
@@ -37,6 +41,8 @@ public class Player_Controller : MonoBehaviour
     {
         PlayerMovment();
         Rotation();
+
+        RaycastDoorDetection();
      
     }
 
@@ -63,13 +69,13 @@ public class Player_Controller : MonoBehaviour
 
         transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
 
-        float currentDirectio = gameManager.currentDirection;
+        float currentDirection = gameManager.currentDirection;
         float loseDirectionLeft = gameManager.leftLoseRotation;
         float loseDirectionRigth = gameManager.rigthLoseRotation;
         float behindDirection = gameManager.behindDirection;
         float playerDirection = transform.rotation.eulerAngles.y;
        
-        if(currentDirectio == 180)
+        if(currentDirection == 180)
         {
             if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
             {
@@ -93,6 +99,7 @@ public class Player_Controller : MonoBehaviour
         }
 
         
+        
          
         
       
@@ -100,7 +107,22 @@ public class Player_Controller : MonoBehaviour
      
     }
 
- 
+    private void RaycastDoorDetection()
+    {
+        bool raycastDoor = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1.5f, doorLayerMask);
+
+        Color raycastHitColor = (raycastDoor) ? Color.green : Color.magenta;
+        Debug.DrawRay(transform.position, transform.forward * 1.5f, raycastHitColor);
+
+        if (raycastDoor)
+        {
+            triggerPointScript.canOpenDoor = true;
+        }
+        else
+        {
+            triggerPointScript.canOpenDoor = false;
+        }
+    }
    
     
 

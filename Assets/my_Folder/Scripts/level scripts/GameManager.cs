@@ -33,11 +33,12 @@ public class GameManager : MonoBehaviour
 
     public void RotatePlayer(float rotationChange)
     {
-        
+        Debug.Log($"currentDirection2 {currentDirection2}");
+        Debug.Log($"rotationChange {rotationChange}");
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection2 + rotationChange, playerReference.transform.rotation.z);
        
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
-        currentDirection2 = playerReference.transform.rotation.y;
+        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
         SetAngles();
     }
    
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour
         // positiveLoseRotation = (playerReference.transform.rotation.eulerAngles.y + 0.90f) * Mathf.Rad2Deg;
         // negativeLoseRotation = (playerReference.transform.rotation.eulerAngles.y  - 0.90f) * Mathf.Rad2Deg; 
 
-        currentDirection2 = playerReference.transform.rotation.y;
+        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
         currentDirection = 360;
         leftLoseRotation = 270;
         rigthLoseRotation = 90;
@@ -56,33 +57,43 @@ public class GameManager : MonoBehaviour
     }
     public void SetAngles()
     {
+
+        Debug.Log($"currentDirection {currentDirection}");
        
 
-       
-
-        if (currentDirection == 360)
+        if (currentDirection % 360 == 0)
         {
+            Debug.Log("caso 360");
+
             leftLoseRotation = 270;
             rigthLoseRotation = 90;
             behindDirection = 180;
         }
-        if (currentDirection == 180)
+        if (currentDirection % 360 == 180)
         {
+            Debug.Log("caso 180");
+
             rigthLoseRotation = 270;
             leftLoseRotation = 90;
             behindDirection = 360;
+
+           
         }
 
-        if (currentDirection == 270)
+        if (currentDirection % 360 == 270)
         {
+            Debug.Log("caso 270");
+
             rigthLoseRotation = 0;
             leftLoseRotation = 180;
             behindDirection = 90;
 
         }
 
-        if (currentDirection == 90)
+        if (currentDirection % 360 == 90)
         {
+            Debug.Log("caso 90");
+
             leftLoseRotation = 360;
             rigthLoseRotation = 180;
             behindDirection = 270;
