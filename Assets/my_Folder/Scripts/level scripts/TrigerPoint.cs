@@ -18,6 +18,7 @@ public class TrigerPoint : MonoBehaviour
     {
         playerControllerScript = FindObjectOfType<Player_Controller>();
         gameManagerScript = FindObjectOfType<GameManager>();
+        playerControllerScript.enabled = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,7 +26,7 @@ public class TrigerPoint : MonoBehaviour
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
             rotationChanged = true;
-            Debug.Log("Hello");
+            
 
             playerControllerScript.enabled = false;
             gameManagerScript.RotatePlayer(newCurrentDirection);

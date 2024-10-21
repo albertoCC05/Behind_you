@@ -13,6 +13,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float rotationPlayerSpeed;
     private float horizontalInput;
     private float verticalInput;
+    [SerializeField] private Rigidbody playerRb;
 
     //Script references
 
@@ -20,11 +21,12 @@ public class Player_Controller : MonoBehaviour
     private TrigerPoint triggerPointScript;
 
 
-    //
+    
 
   [SerializeField]  private LayerMask doorLayerMask;
 
-
+    private Inventory inventory;
+    [SerializeField] UI_Inventory uiInventory;
 
 
 
@@ -33,9 +35,14 @@ public class Player_Controller : MonoBehaviour
     {
        gameManager = FindObjectOfType<GameManager>();
        triggerPointScript = FindObjectOfType<TrigerPoint>();
+       
 
 
-
+    }
+    private void Awake()
+    {
+        inventory = new Inventory();
+       
     }
     private void Update()
     {
@@ -52,10 +59,21 @@ public class Player_Controller : MonoBehaviour
     private void PlayerMovment()
     {
         verticalInput = Input.GetAxis("Vertical");
-        
+        Vector3 movment = (verticalInput * transform.forward).normalized * playerSpeed;
+
+
         if (verticalInput >= 0 )
         {
-            transform.Translate(Vector3.forward * playerSpeed * verticalInput * Time.deltaTime);
+            //  transform.Translate(Vector3.forward * playerSpeed * verticalInput * Time.deltaTime);
+
+            playerRb.AddForce(transform.forward * playerSpeed * verticalInput);
+            
+
+            
+        }
+        else
+        {
+            playerRb.velocity = Vector3.zero;
         }
     }
    

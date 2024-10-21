@@ -58,12 +58,12 @@ public class GameManager : MonoBehaviour
     public void SetAngles()
     {
 
-        Debug.Log($"currentDirection {currentDirection}");
+      
        
 
         if (currentDirection % 360 == 0)
         {
-            Debug.Log("caso 360");
+            
 
             leftLoseRotation = 270;
             rigthLoseRotation = 90;
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
         if (currentDirection % 360 == 180)
         {
-            Debug.Log("caso 180");
+            
 
             rigthLoseRotation = 270;
             leftLoseRotation = 90;
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
 
         if (currentDirection % 360 == 270)
         {
-            Debug.Log("caso 270");
+           
 
             rigthLoseRotation = 0;
             leftLoseRotation = 180;
@@ -93,13 +93,12 @@ public class GameManager : MonoBehaviour
         if (currentDirection % 360 == 90)
         {
             Debug.Log("caso 90");
-
             leftLoseRotation = 360;
             rigthLoseRotation = 180;
             behindDirection = 270;
         }
 
-        Debug.Log(currentDirection2);
+        
         
 
        // if ( leftLoseRotation == 0 )
