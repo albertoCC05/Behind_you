@@ -26,7 +26,7 @@ public class Player_Controller : MonoBehaviour
   [SerializeField]  private LayerMask doorLayerMask;
 
     private Inventory inventory;
-    [SerializeField] UI_Inventory uiInventory;
+    
 
 
 
@@ -35,13 +35,16 @@ public class Player_Controller : MonoBehaviour
     {
        gameManager = FindObjectOfType<GameManager>();
        triggerPointScript = FindObjectOfType<TrigerPoint>();
+
+        inventory = new Inventory();
+
        
 
 
     }
     private void Awake()
     {
-        inventory = new Inventory();
+        
        
     }
     private void Update()
@@ -141,8 +144,11 @@ public class Player_Controller : MonoBehaviour
             triggerPointScript.canOpenDoor = false;
         }
     }
-   
-    
 
-   
+    public Inventory GetPlayerInventory()
+    {
+        return inventory;
+    }
+
+
 }

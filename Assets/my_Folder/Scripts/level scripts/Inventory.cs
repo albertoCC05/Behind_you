@@ -1,29 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Inventory 
 {
-   private List<Item> itemList;
+    private List<Item> itemList;
+
 
     public Inventory()
     {
-        itemList = new List<Item>();
-
-        AddItem(new Item { type = Item.ItemType.gun, amount = 1 });
-        AddItem(new Item { type = Item.ItemType.flashligth, amount = 1 });
-        AddItem(new Item { type = Item.ItemType.key, amount = 1 });
-
+         itemList = new List<Item>();
        
     }
-
     public void AddItem(Item item)
     {
         itemList.Add(item);
-    }
+        Debug.Log(item);
 
-    public List<Item> GetItemList()
-    {
-        return itemList;
     }
+   
 }

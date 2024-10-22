@@ -15,4 +15,6 @@ public class Item
 
     public ItemType type;
     public int amount;
+
+    
 }
