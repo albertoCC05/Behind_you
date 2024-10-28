@@ -25,8 +25,7 @@ public class ItemWorld : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-        {
-           
+        {      
             if (itemType == 1)
             {
                 inventory.AddItem(new Item { type = Item.ItemType.gun, amount = 1 });
@@ -43,11 +42,6 @@ public class ItemWorld : MonoBehaviour
             {
                 inventory.AddItem(new Item { type = Item.ItemType.key, amount = 1 });
             }
-
-
-
-
-
         }
     }
 
