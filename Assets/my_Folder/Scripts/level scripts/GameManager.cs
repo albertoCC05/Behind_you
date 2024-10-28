@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         Time.timeScale = 1;
         StartSetLoseAngles();
-        Debug.Log(currentDirection2);
+        
     }
 
     public void RotatePlayer(float rotationChange)

@@ -16,7 +16,7 @@ public class Inventory
     public void AddItem(Item item)
     {
         itemList.Add(item);
-        Debug.Log(item);
+        Debug.Log(item.type);
 
     }
    
