@@ -3807,7 +3807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb65858af30f484eb50ec163206d553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newCurrentDirection: -90
+  newCurrentDirection: 180
   canOpenDoor: 0
 --- !u!65 &1002517100
 BoxCollider:
@@ -4502,7 +4502,7 @@ Transform:
   m_GameObject: {fileID: 1108387963}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7130866, z: 0, w: 0.70107603}
-  m_LocalPosition: {x: 0.60197055, y: 0, z: -2.7501726}
+  m_LocalPosition: {x: 0.68, y: 0, z: -7.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7429,7 +7429,7 @@ Transform:
   m_GameObject: {fileID: 2142907831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7130866, z: -0, w: 0.70107603}
-  m_LocalPosition: {x: 4.98, y: -0.537, z: -2.43}
+  m_LocalPosition: {x: 5.44, y: -0.537, z: -2.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
