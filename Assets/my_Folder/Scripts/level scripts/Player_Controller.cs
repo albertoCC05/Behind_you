@@ -39,7 +39,7 @@ public class Player_Controller : MonoBehaviour
         inventory = new Inventory();
 
        
-
+        
 
     }
     private void Awake()
@@ -69,7 +69,7 @@ public class Player_Controller : MonoBehaviour
         {
             //  transform.Translate(Vector3.forward * playerSpeed * verticalInput * Time.deltaTime);
 
-            playerRb.AddForce(transform.forward * playerSpeed * verticalInput);
+            playerRb.AddForce(transform.forward * playerSpeed * verticalInput * Time.deltaTime);
             
 
             

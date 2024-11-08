@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340b4f140d28f64a88641c8bc30cdd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 5
+  playerSpeed: 1000
   rotationPlayerSpeed: 100
   playerRb: {fileID: 127412052}
   doorLayerMask:
