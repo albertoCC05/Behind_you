@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static Item;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Player_Controller : MonoBehaviour
 
     private GameManager gameManager;
     private TrigerPoint triggerPointScript;
+    private UiInventory uiInventory;
 
 
     
@@ -35,8 +37,9 @@ public class Player_Controller : MonoBehaviour
     {
        gameManager = FindObjectOfType<GameManager>();
        triggerPointScript = FindObjectOfType<TrigerPoint>();
-
+       uiInventory = FindObjectOfType<UiInventory>();
         inventory = new Inventory();
+        UiInventory.Instance.SetInventory(inventory);
 
        
         
@@ -150,5 +153,46 @@ public class Player_Controller : MonoBehaviour
         return inventory;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
 
+        ;
+
+        if (other.gameObject.CompareTag("Item"))
+        {
+            if (other.GetComponent<ItemWorld>().itemType == 1)
+            {
+                Item saveItem = new Item { type = Item.ItemType.gun, amount = 1 };
+
+                inventory.AddItem(saveItem);
+                uiInventory.UpdateInventory(saveItem);
+            }
+            if (other.GetComponent<ItemWorld>().itemType == 2)
+            {
+                Item saveItem = new Item { type = Item.ItemType.flashligth, amount = 1 };
+
+                inventory.AddItem(saveItem);
+                uiInventory.UpdateInventory(saveItem);
+            }
+            if (other.GetComponent<ItemWorld>().itemType == 3)
+            {
+                Item saveItem = new Item { type = Item.ItemType.bullets, amount = 1 };
+
+                inventory.AddItem(saveItem);
+                uiInventory.UpdateInventory(saveItem);
+            }
+            if (other.GetComponent<ItemWorld>().itemType == 4)
+            {
+                Item saveItem = new Item { type = Item.ItemType.key, amount = 1 };
+
+                Debug.Log(inventory);
+
+                inventory.AddItem(saveItem);
+                uiInventory.UpdateInventory(saveItem);
+
+
+
+            }
+        }
+    }
 }
