@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     public float behindDirection;
 
     public float currentDirection2;
+
+    private Player_Controller playerController;
+
     
 
 
@@ -25,6 +29,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         uiManager = FindObjectOfType<UiManager>();
+        playerController = FindObjectOfType<Player_Controller>();
         isGameOver = false;
         Time.timeScale = 1;
         StartSetLoseAngles();
@@ -115,11 +120,29 @@ public class GameManager : MonoBehaviour
        
 
     }
-    public void SetGameOver()
+    public void CheckGameOver()
     {
-        isGameOver = true;
-        uiManager.ShowGameOverPanel();
+
+        if (playerController.currentItem.type == Item.ItemType.gun && playerController.numberOfBullets > 0)
+        {
+            RotatePlayer(-180);
+            playerController.numberOfBullets--;
+            uiManager.UpdateNumberOfBullets(playerController.numberOfBullets);  
+        }
+        else
+        {
+            isGameOver = true;
+            uiManager.ShowGameOverPanel();
+            Time.timeScale = 0;
+        }
+     
+
+
+    }
+    public void Win()
+    {
         Time.timeScale = 0;
+        uiManager.ShowWinPanel();
     }
   
 }

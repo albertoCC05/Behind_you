@@ -15,20 +15,29 @@ public class Player_Controller : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     [SerializeField] private Rigidbody playerRb;
+    
 
     //Script references
 
     private GameManager gameManager;
     private TrigerPoint triggerPointScript;
     private UiInventory uiInventory;
-
-
-    
+    private UiManager uiManager;
+   
 
   [SerializeField]  private LayerMask doorLayerMask;
 
     private Inventory inventory;
-    
+
+    public Item currentItem;
+
+    public bool canOpenDoor = false;
+
+    [SerializeField]  private GameObject Flashligth;
+
+    public int numberOfBullets;
+
+
 
 
 
@@ -38,8 +47,11 @@ public class Player_Controller : MonoBehaviour
        gameManager = FindObjectOfType<GameManager>();
        triggerPointScript = FindObjectOfType<TrigerPoint>();
        uiInventory = FindObjectOfType<UiInventory>();
+        uiManager = FindObjectOfType<UiManager>();
         inventory = new Inventory();
         UiInventory.Instance.SetInventory(inventory);
+
+       currentItem = new Item { type = Item.ItemType.nothing, amount = 1 }; ;
 
        
         
@@ -56,6 +68,7 @@ public class Player_Controller : MonoBehaviour
         Rotation();
 
         RaycastDoorDetection();
+        FlashligthEffect();
      
     }
 
@@ -103,22 +116,22 @@ public class Player_Controller : MonoBehaviour
         {
             if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
             {
-                gameManager.SetGameOver();
+                gameManager.CheckGameOver();
             }
             if (playerDirection <= loseDirectionLeft && playerDirection >= 0)
             {
-                gameManager.SetGameOver();
+                gameManager.CheckGameOver();
             }
         }
         else
         {
             if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
             {
-                gameManager.SetGameOver();
+                gameManager.CheckGameOver();
             }
             if (playerDirection <= loseDirectionLeft && playerDirection >= behindDirection)
             {
-                gameManager.SetGameOver();
+                gameManager.CheckGameOver();
             }
         }
 
@@ -140,11 +153,11 @@ public class Player_Controller : MonoBehaviour
 
         if (raycastDoor)
         {
-            triggerPointScript.canOpenDoor = true;
+            canOpenDoor = true;
         }
         else
         {
-            triggerPointScript.canOpenDoor = false;
+           canOpenDoor = false;
         }
     }
 
@@ -156,7 +169,7 @@ public class Player_Controller : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        ;
+        
 
         if (other.gameObject.CompareTag("Item"))
         {
@@ -166,6 +179,8 @@ public class Player_Controller : MonoBehaviour
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
+
+               
             }
             if (other.GetComponent<ItemWorld>().itemType == 2)
             {
@@ -173,26 +188,47 @@ public class Player_Controller : MonoBehaviour
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
+
+                
             }
             if (other.GetComponent<ItemWorld>().itemType == 3)
             {
-                Item saveItem = new Item { type = Item.ItemType.bullets, amount = 1 };
+                Item saveItem = new Item { type = Item.ItemType.key, amount = 1 };
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
+
+               
             }
             if (other.GetComponent<ItemWorld>().itemType == 4)
             {
-                Item saveItem = new Item { type = Item.ItemType.key, amount = 1 };
 
-                Debug.Log(inventory);
+                numberOfBullets++;
+                uiManager.UpdateNumberOfBullets(numberOfBullets);
 
-                inventory.AddItem(saveItem);
-                uiInventory.UpdateInventory(saveItem);
-
-
-
+              
             }
+            Destroy(other.gameObject);
+
         }
+    }
+    
+   public void SetCurrentItem(int SetItem)
+   {
+        currentItem = inventory.itemList[SetItem];
+   }
+
+   public void FlashligthEffect()
+    {
+        if (currentItem.type == Item.ItemType.flashligth)
+        {
+            Flashligth.SetActive(true);
+        }
+        else
+        {
+            Flashligth.SetActive(false);
+        }
+
+       
     }
 }

@@ -12,7 +12,7 @@ public class TrigerPoint : MonoBehaviour
     private GameManager gameManagerScript;
     private bool rotationChanged = false;
 
-    public bool canOpenDoor = false;
+    
 
     private void Start()
     {
@@ -43,7 +43,7 @@ public class TrigerPoint : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && canOpenDoor == true ) 
+        if (Input.GetMouseButtonDown(0) && playerControllerScript.canOpenDoor == true ) 
         {
             DoorTriggerPoint();
         }

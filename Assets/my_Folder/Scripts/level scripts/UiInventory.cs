@@ -17,12 +17,19 @@ public class UiInventory : MonoBehaviour
     private bool isActive;
 
     public static UiInventory Instance { get; private set; }
+    private Player_Controller playerController;
+
+    [SerializeField] private TextMeshProUGUI currentItemText;
 
 
     private void Start()
     {
+
+        playerController = FindObjectOfType<Player_Controller>();
+
         HideInventory();
         isActive = false;
+        ChangeCurrentItemText();
     }
     private void Awake()
     {
@@ -74,7 +81,20 @@ public class UiInventory : MonoBehaviour
 
 
     }
-
+    public void ReturnInventoryButton()
+    {
+        HideInventory();
+    }
+    public void UseItemButton(int CurrentItem)
+    {
+        playerController.SetCurrentItem(CurrentItem);
+        Debug.Log(playerController.currentItem.type);
+        ChangeCurrentItemText();
+    }
+    public void ChangeCurrentItemText()
+    {
+        currentItemText.text = $"Item: {playerController.currentItem.type}";
+    }
 
 
 

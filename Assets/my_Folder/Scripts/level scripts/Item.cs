@@ -10,6 +10,7 @@ public class Item
         flashligth,
         bullets,
         key,
+        nothing,
 
     }
 
