@@ -8,6 +8,7 @@ public class TrigerPoint : MonoBehaviour
 {
     [SerializeField] private float newCurrentDirection;
 
+
     private Player_Controller playerControllerScript;
     private GameManager gameManagerScript;
     private bool rotationChanged = false;
@@ -23,6 +24,9 @@ public class TrigerPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //TODO: dar la posibilidad de girar a un lado o a otro -- 2 direcciones posibles.
+        //TODO: dar la opcion de girar o seguir recto.
+
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
             rotationChanged = true;
@@ -32,6 +36,8 @@ public class TrigerPoint : MonoBehaviour
             gameManagerScript.RotatePlayer(newCurrentDirection);
 
             StartCoroutine(EnablePlayerScript());
+            gameManagerScript.EnableTrigerPointCollider();
+            DisableCollider();
 
            // this.enabled = false;
            
@@ -72,8 +78,16 @@ public class TrigerPoint : MonoBehaviour
         if (this.gameObject.CompareTag("Door"))
         {
             GameObject.Destroy(this.gameObject);
+            gameManagerScript.EnableTrigerPointCollider();
         }
     }
+    private void DisableCollider()
+    {
+        this.GetComponent<BoxCollider>().enabled = false;
+
+       
+    }
+    
   
 
 }

@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI numberOfBullets;
     [SerializeField] GameObject winPanel;
+    [SerializeField] private GameObject instructionsPanel; 
 
     private Player_Controller playerController;
 
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
 
+            ShowInstrucctions();
+        
+        }
+    }
     private void Start()
     {
 
@@ -20,6 +30,7 @@ public class UiManager : MonoBehaviour
 
         HideGameOverPanel();
         HideWinPanel();
+        ShowInstrucctions();
     }
 
     public void ShowGameOverPanel()
@@ -42,4 +53,20 @@ public class UiManager : MonoBehaviour
     {
         winPanel.SetActive(true);
     }
+    public void HideInstrucctions()
+    {
+        Time.timeScale = 1f;
+        instructionsPanel.SetActive(false);
+    }
+    private void ShowInstrucctions()
+    {
+        Time.timeScale = 0f;
+        instructionsPanel.SetActive(true);
+    }
+    public void RestartLevelB()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
 }

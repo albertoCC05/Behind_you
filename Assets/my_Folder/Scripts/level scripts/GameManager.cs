@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     private Player_Controller playerController;
 
+    public GameObject[] trigerPointsArray;
+
     
 
 
@@ -40,8 +42,21 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"currentDirection2 {currentDirection2}");
         Debug.Log($"rotationChange {rotationChange}");
+
+      
+
+        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, rotationChange, playerReference.transform.rotation.z);
+
+        currentDirection = playerReference.transform.rotation.eulerAngles.y;
+        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
+        SetAngles();
+    }
+    public void RotatePlayerGun(float rotationChange)
+    {
+        //TODO: quiza esto deba estar en otro script.
+
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection2 + rotationChange, playerReference.transform.rotation.z);
-       
+
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
         currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
         SetAngles();
@@ -120,14 +135,23 @@ public class GameManager : MonoBehaviour
        
 
     }
+
+    public void EnableTrigerPointCollider()
+    {
+        foreach (GameObject triggerP in trigerPointsArray)
+        {
+            triggerP.GetComponent<BoxCollider>().enabled = true;
+        }
+    }
     public void CheckGameOver()
     {
 
         if (playerController.currentItem.type == Item.ItemType.gun && playerController.numberOfBullets > 0)
         {
-            RotatePlayer(-180);
+            RotatePlayerGun(-180);
             playerController.numberOfBullets--;
-            uiManager.UpdateNumberOfBullets(playerController.numberOfBullets);  
+            uiManager.UpdateNumberOfBullets(playerController.numberOfBullets);
+            EnableTrigerPointCollider();
         }
         else
         {

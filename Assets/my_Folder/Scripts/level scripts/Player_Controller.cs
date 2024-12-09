@@ -64,16 +64,20 @@ public class Player_Controller : MonoBehaviour
     }
     private void Update()
     {
-        PlayerMovment();
+        
         Rotation();
 
         RaycastDoorDetection();
         FlashligthEffect();
      
     }
+    private void FixedUpdate()
+    {
+        PlayerMovment();
+    }
 
-  
-   
+
+
 
     private void PlayerMovment()
     {
