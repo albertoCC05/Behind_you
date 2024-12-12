@@ -13,6 +13,8 @@ public class UiManager : MonoBehaviour
 
     private Player_Controller playerController;
 
+    [SerializeField] private GameObject selectChangeDirectionPanel;
+
 
     private void Update()
     {

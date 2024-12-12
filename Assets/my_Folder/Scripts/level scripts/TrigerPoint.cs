@@ -13,7 +13,13 @@ public class TrigerPoint : MonoBehaviour
     private GameManager gameManagerScript;
     private bool rotationChanged = false;
 
-    
+    [SerializeField] private int[] rotationChangeIf90;
+    [SerializeField] private int[] rotationChangeIf270;
+    [SerializeField] private int[] rotationChangeIf0;
+    [SerializeField] private int[] rotationChangeIf180;
+
+
+
 
     private void Start()
     {
@@ -29,6 +35,13 @@ public class TrigerPoint : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
+
+            if (gameManagerScript.currentDirection == 180)
+            {
+
+            }
+
+
             rotationChanged = true;
             
 

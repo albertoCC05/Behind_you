@@ -40,40 +40,39 @@ public class GameManager : MonoBehaviour
 
     public void RotatePlayer(float rotationChange)
     {
-        Debug.Log($"currentDirection2 {currentDirection2}");
-        Debug.Log($"rotationChange {rotationChange}");
-
+       
       
 
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, rotationChange, playerReference.transform.rotation.z);
 
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
-        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
+     
         SetAngles();
     }
     public void RotatePlayerGun(float rotationChange)
     {
         //TODO: quiza esto deba estar en otro script.
 
-        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection2 + rotationChange, playerReference.transform.rotation.z);
+        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection + rotationChange, playerReference.transform.rotation.z);
 
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
-        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
+      
         SetAngles();
     }
    
     private void StartSetLoseAngles()
     {
-        // positiveLoseRotation = (playerReference.transform.rotation.eulerAngles.y + 0.90f) * Mathf.Rad2Deg;
-        // negativeLoseRotation = (playerReference.transform.rotation.eulerAngles.y  - 0.90f) * Mathf.Rad2Deg; 
+       
 
-        currentDirection2 = playerReference.transform.rotation.eulerAngles.y;
+      
         currentDirection = 360;
         leftLoseRotation = 270;
         rigthLoseRotation = 90;
         behindDirection = 180;
 
-        
+       
+
+
     }
     public void SetAngles()
     {
@@ -121,14 +120,7 @@ public class GameManager : MonoBehaviour
         
         
 
-       // if ( leftLoseRotation == 0 )
-        {
-            // leftLoseRotation = 360;
-        }
-      //  if (rigthLoseRotation == 0)
-        {
-          //  rigthLoseRotation = 360;
-        }
+  
 
 
       
