@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+public enum Direction
+{
+    Forward = 0,
+    Back = 180,
+    Rigth = 90,
+    Left = 270,
+
+}
+
 public class GameManager : MonoBehaviour
 {
     private bool isGameOver;
@@ -16,7 +26,7 @@ public class GameManager : MonoBehaviour
     public float currentDirection;
     public float behindDirection;
 
-    public float currentDirection2;
+    
 
     private Player_Controller playerController;
 
@@ -35,13 +45,15 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         Time.timeScale = 1;
         StartSetLoseAngles();
+
+        Debug.Log(currentDirection);
         
     }
 
     public void RotatePlayer(float rotationChange)
     {
-       
-      
+
+        
 
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, rotationChange, playerReference.transform.rotation.z);
 
@@ -56,7 +68,10 @@ public class GameManager : MonoBehaviour
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection + rotationChange, playerReference.transform.rotation.z);
 
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
+
       
+       
+
         SetAngles();
     }
    
@@ -65,7 +80,7 @@ public class GameManager : MonoBehaviour
        
 
       
-        currentDirection = 360;
+        currentDirection = 0;
         leftLoseRotation = 270;
         rigthLoseRotation = 90;
         behindDirection = 180;
@@ -111,7 +126,7 @@ public class GameManager : MonoBehaviour
 
         if (currentDirection % 360 == 90)
         {
-            Debug.Log("caso 90");
+            
             leftLoseRotation = 360;
             rigthLoseRotation = 180;
             behindDirection = 270;

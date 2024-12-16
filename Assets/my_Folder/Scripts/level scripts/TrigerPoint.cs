@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TrigerPoint : MonoBehaviour
 {
@@ -13,11 +15,18 @@ public class TrigerPoint : MonoBehaviour
     private GameManager gameManagerScript;
     private bool rotationChanged = false;
 
-    [SerializeField] private int[] rotationChangeIf90;
-    [SerializeField] private int[] rotationChangeIf270;
-    [SerializeField] private int[] rotationChangeIf0;
-    [SerializeField] private int[] rotationChangeIf180;
+    [SerializeField] private Button[] rotationChangeIf90Buttons;
+    [SerializeField] private Button[] rotationChangeIf270Buttons;
+    [SerializeField] private Button[] rotationChangeIf0Buttons;
+    [SerializeField] private Button[] rotationChangeIf180Buttons;
 
+  
+
+
+    [SerializeField] private GameObject selectChangeDirectionPanel;
+    [SerializeField] private Button[] changeButtons;
+
+   
 
 
 
@@ -26,6 +35,11 @@ public class TrigerPoint : MonoBehaviour
         playerControllerScript = FindObjectOfType<Player_Controller>();
         gameManagerScript = FindObjectOfType<GameManager>();
         playerControllerScript.enabled = true;
+
+        selectChangeDirectionPanel.SetActive(false);
+
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,29 +49,181 @@ public class TrigerPoint : MonoBehaviour
 
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
+            ShowSelectDirectionPanel();
 
-            if (gameManagerScript.currentDirection == 180)
+            if (gameManagerScript.currentDirection == 360 )
             {
+                Debug.Log($"direction = {360}");
+
+                foreach (Button button in rotationChangeIf0Buttons)
+                {
+                  
+                    button.gameObject.SetActive(true);
+
+
+                }
+                
+            }
+            if (gameManagerScript.currentDirection == 90)
+            {
+                Debug.Log($"direction = {90}");
+
+                foreach (Button button in rotationChangeIf90Buttons)
+                {
+
+                    button.gameObject.SetActive(true);
+
+
+                }
 
             }
+            if (gameManagerScript.currentDirection == 270)
+            {
+                Debug.Log($"direction = {270}");
+
+                foreach (Button button in rotationChangeIf270Buttons)
+                {
+
+                    button.gameObject.SetActive(true);
 
 
-            rotationChanged = true;
+                }
+
+            }
+            if (gameManagerScript.currentDirection == 180)
+            {
+                Debug.Log($"direction = {180}");
+
+                foreach (Button button in rotationChangeIf180Buttons)
+                {
+
+                    button.gameObject.SetActive(true);
+
+
+                }
+
+            }
+           
+
+       
             
 
-            playerControllerScript.enabled = false;
-            gameManagerScript.RotatePlayer(newCurrentDirection);
-
-            StartCoroutine(EnablePlayerScript());
-            gameManagerScript.EnableTrigerPointCollider();
-            DisableCollider();
-
-           // this.enabled = false;
-           
+         
         }
        
    
     }
+    public void ChangeDirection(int direcction)
+    {
+        // direction = 1 = go straight
+        //direction = 2 = left
+        //direction = 3 rigth
+
+       
+
+        if (direcction == 1)
+        {
+           
+
+            gameManagerScript.RotatePlayer(gameManagerScript.currentDirection);
+
+
+        }
+        if (direcction == 2)
+        {
+            if (gameManagerScript.currentDirection == 360)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(270);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+
+            }
+            else if (gameManagerScript.currentDirection == 90)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(0f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+            else if (gameManagerScript.currentDirection == 270)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(-180f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+            else if (gameManagerScript.currentDirection == 180)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(90f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+        }
+        if (direcction == 3)
+        {
+
+            if (gameManagerScript.currentDirection == 360)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(90f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+
+            }
+            else if (gameManagerScript.currentDirection == 90)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(-180f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+            else if (gameManagerScript.currentDirection == 270)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(0f);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+            else if(gameManagerScript.currentDirection == 180)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(270);
+                StartCoroutine(EnablePlayerScript());
+                gameManagerScript.EnableTrigerPointCollider();
+                DisableCollider();
+            }
+
+
+
+         
+            
+
+            this.enabled = false;
+        }
+
+        Debug.Log(gameManagerScript.currentDirection);
+        foreach (Button buton in changeButtons)
+        {
+            buton.gameObject.SetActive(false);
+
+            
+        }
+        selectChangeDirectionPanel.SetActive(false);
+    }
+    private void ShowSelectDirectionPanel()
+    {
+        selectChangeDirectionPanel.SetActive(true);
+    }
+    
     
 
     private void OnMouseOver()

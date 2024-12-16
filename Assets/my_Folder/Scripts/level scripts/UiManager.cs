@@ -13,18 +13,10 @@ public class UiManager : MonoBehaviour
 
     private Player_Controller playerController;
 
-    [SerializeField] private GameObject selectChangeDirectionPanel;
+    
 
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
-        {
-
-            ShowInstrucctions();
-        
-        }
-    }
+   
     private void Start()
     {
 
@@ -32,7 +24,7 @@ public class UiManager : MonoBehaviour
 
         HideGameOverPanel();
         HideWinPanel();
-        ShowInstrucctions();
+       
     }
 
     public void ShowGameOverPanel()
