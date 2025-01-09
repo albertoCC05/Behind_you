@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
       
        
 
-        if (currentDirection % 360 == 0)
+        if (currentDirection % 360 == ((float)Direction.Forward))
         {
             
 
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             rigthLoseRotation = 90;
             behindDirection = 180;
         }
-        if (currentDirection % 360 == 180)
+        if (currentDirection % 360 == ((float)Direction.Back))
         {
             
 
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
            
         }
 
-        if (currentDirection % 360 == 270)
+        if (currentDirection % 360 == ((float)Direction.Left))
         {
            
 
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        if (currentDirection % 360 == 90)
+        if (currentDirection % 360 == ((float)Direction.Rigth))
         {
             
             leftLoseRotation = 360;
