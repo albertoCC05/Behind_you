@@ -80,10 +80,10 @@ public class GameManager : MonoBehaviour
        
 
       
-        currentDirection = 0;
-        leftLoseRotation = 270;
-        rigthLoseRotation = 90;
-        behindDirection = 180;
+        currentDirection = ((float)Direction.Forward);
+        leftLoseRotation = ((float)Direction.Left);
+        rigthLoseRotation = ((float)Direction.Rigth);
+        behindDirection = ((float)Direction.Back);
 
        
 
@@ -99,17 +99,17 @@ public class GameManager : MonoBehaviour
         {
             
 
-            leftLoseRotation = 270;
-            rigthLoseRotation = 90;
-            behindDirection = 180;
+            leftLoseRotation = ((float)Direction.Left);
+            rigthLoseRotation = ((float)Direction.Rigth);
+            behindDirection = ((float)Direction.Back);
         }
         if (currentDirection % 360 == ((float)Direction.Back))
         {
             
 
-            rigthLoseRotation = 270;
-            leftLoseRotation = 90;
-            behindDirection = 360;
+            rigthLoseRotation = ((float)Direction.Left);
+            leftLoseRotation = ((float)Direction.Rigth);
+            behindDirection = ((float)Direction.Forward);
 
            
         }
@@ -118,18 +118,18 @@ public class GameManager : MonoBehaviour
         {
            
 
-            rigthLoseRotation = 0;
-            leftLoseRotation = 180;
-            behindDirection = 90;
+            rigthLoseRotation = ((float)Direction.Forward);
+            leftLoseRotation = ((float)Direction.Back);
+            behindDirection = ((float)Direction.Rigth);
 
         }
 
         if (currentDirection % 360 == ((float)Direction.Rigth))
         {
             
-            leftLoseRotation = 360;
-            rigthLoseRotation = 180;
-            behindDirection = 270;
+            leftLoseRotation = ((float)Direction.Forward);
+            rigthLoseRotation = ((float)Direction.Back);
+            behindDirection = ((float)Direction.Left);
         }
 
         

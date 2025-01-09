@@ -51,7 +51,7 @@ public class TrigerPoint : MonoBehaviour
         {
             ShowSelectDirectionPanel();
 
-            if (gameManagerScript.currentDirection == 360 )
+            if (gameManagerScript.currentDirection == ((float)Direction.Forward) )
             {
                 Debug.Log($"direction = {360}");
 
@@ -64,7 +64,7 @@ public class TrigerPoint : MonoBehaviour
                 }
                 
             }
-            if (gameManagerScript.currentDirection == 90)
+            if (gameManagerScript.currentDirection == ((float)Direction.Rigth))
             {
                 Debug.Log($"direction = {90}");
 
@@ -77,7 +77,7 @@ public class TrigerPoint : MonoBehaviour
                 }
 
             }
-            if (gameManagerScript.currentDirection == 270)
+            if (gameManagerScript.currentDirection == ((float)Direction.Left))
             {
                 Debug.Log($"direction = {270}");
 
@@ -90,7 +90,7 @@ public class TrigerPoint : MonoBehaviour
                 }
 
             }
-            if (gameManagerScript.currentDirection == 180)
+            if (gameManagerScript.currentDirection == ((float)Direction.Back))
             {
                 Debug.Log($"direction = {180}");
 
@@ -131,35 +131,35 @@ public class TrigerPoint : MonoBehaviour
         }
         if (direcction == 2)
         {
-            if (gameManagerScript.currentDirection == 360)
+            if (gameManagerScript.currentDirection == ((float)Direction.Forward))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
+                gameManagerScript.RotatePlayer(((float)Direction.Left));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
 
             }
-            else if (gameManagerScript.currentDirection == 90)
+            else if (gameManagerScript.currentDirection == ((float)Direction.Rigth))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
+                gameManagerScript.RotatePlayer(((float)Direction.Forward));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
             }
-            else if (gameManagerScript.currentDirection == 270)
+            else if (gameManagerScript.currentDirection == ((float)Direction.Left))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
+                gameManagerScript.RotatePlayer(((float)Direction.Back));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
             }
-            else if (gameManagerScript.currentDirection == 180)
+            else if (gameManagerScript.currentDirection == ((float)Direction.Back))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
+                gameManagerScript.RotatePlayer(((float)Direction.Rigth));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
@@ -168,35 +168,35 @@ public class TrigerPoint : MonoBehaviour
         if (direcction == 3)
         {
 
-            if (gameManagerScript.currentDirection == 360)
+            if (gameManagerScript.currentDirection == ((float)Direction.Forward))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
+                gameManagerScript.RotatePlayer(((float)Direction.Rigth));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
 
             }
-            else if (gameManagerScript.currentDirection == 90)
+            else if (gameManagerScript.currentDirection == ((float)Direction.Rigth))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
+                gameManagerScript.RotatePlayer(((float)Direction.Back));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
             }
-            else if (gameManagerScript.currentDirection == 270)
+            else if (gameManagerScript.currentDirection == ((float)Direction.Left))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
+                gameManagerScript.RotatePlayer(((float)Direction.Forward));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
             }
-            else if(gameManagerScript.currentDirection == 180)
+            else if(gameManagerScript.currentDirection == ((float)Direction.Left))
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
+                gameManagerScript.RotatePlayer(((float)Direction.Left));
                 StartCoroutine(EnablePlayerScript());
                 gameManagerScript.EnableTrigerPointCollider();
                 DisableCollider();
