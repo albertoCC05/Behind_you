@@ -4,14 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public enum Direction
-{
-    Forward = 0,
-    Back = 180,
-    Rigth = 90,
-    Left = 270,
 
-}
 
 public class GameManager : MonoBehaviour
 {
@@ -95,7 +88,7 @@ public class GameManager : MonoBehaviour
       
        
 
-        if (currentDirection % 360 == ((float)Direction.Forward))
+        if (currentDirection % 360 == 0)
         {
             
 
@@ -103,7 +96,7 @@ public class GameManager : MonoBehaviour
             rigthLoseRotation = 90;
             behindDirection = 180;
         }
-        if (currentDirection % 360 == ((float)Direction.Back))
+        if (currentDirection % 360 == 180)
         {
             
 
@@ -114,7 +107,7 @@ public class GameManager : MonoBehaviour
            
         }
 
-        if (currentDirection % 360 == ((float)Direction.Left))
+        if (currentDirection % 360 == 270)
         {
            
 
@@ -124,7 +117,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        if (currentDirection % 360 == ((float)Direction.Rigth))
+        if (currentDirection % 360 == 90)
         {
             
             leftLoseRotation = 360;

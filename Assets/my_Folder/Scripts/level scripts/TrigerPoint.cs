@@ -51,7 +51,7 @@ public class TrigerPoint : MonoBehaviour
         {
             ShowSelectDirectionPanel();
 
-            if (gameManagerScript.currentDirection == 360 )
+            if (gameManagerScript.currentDirection == 0 )
             {
                 Debug.Log($"direction = {360}");
 
@@ -131,7 +131,7 @@ public class TrigerPoint : MonoBehaviour
         }
         if (direcction == 2)
         {
-            if (gameManagerScript.currentDirection == 360)
+            if (gameManagerScript.currentDirection == 0)
             {
                 playerControllerScript.enabled = false;
                 gameManagerScript.RotatePlayer(270);
@@ -168,7 +168,7 @@ public class TrigerPoint : MonoBehaviour
         if (direcction == 3)
         {
 
-            if (gameManagerScript.currentDirection == 360)
+            if (gameManagerScript.currentDirection == 0)
             {
                 playerControllerScript.enabled = false;
                 gameManagerScript.RotatePlayer(90f);
