@@ -37,6 +37,8 @@ public class Player_Controller : MonoBehaviour
 
     public int numberOfBullets;
 
+    public bool playerIsChangingDirection;
+
 
 
 
@@ -53,15 +55,9 @@ public class Player_Controller : MonoBehaviour
 
        currentItem = new Item { type = Item.ItemType.nothing, amount = 1 }; ;
 
-       
-        
 
     }
-    private void Awake()
-    {
-        
-       
-    }
+  
     private void Update()
     {
         
@@ -81,23 +77,29 @@ public class Player_Controller : MonoBehaviour
 
     private void PlayerMovment()
     {
+
+
         verticalInput = Input.GetAxis("Vertical");
         Vector3 movment = (verticalInput * transform.forward).normalized * playerSpeed;
 
-
-        if (verticalInput >= 0 )
+        if (playerIsChangingDirection == false)
         {
-            //  transform.Translate(Vector3.forward * playerSpeed * verticalInput * Time.deltaTime);
+            if (verticalInput >= 0)
+            {
+                //  transform.Translate(Vector3.forward * playerSpeed * verticalInput * Time.deltaTime);
 
-            playerRb.AddForce(transform.forward * playerSpeed * verticalInput * Time.deltaTime);
-            
+                playerRb.AddForce(transform.forward * playerSpeed * verticalInput * Time.deltaTime);
 
-            
+
+
+            }
+            else
+            {
+                playerRb.velocity = Vector3.zero;
+            }
         }
-        else
-        {
-            playerRb.velocity = Vector3.zero;
-        }
+
+       
     }
    
    
@@ -108,44 +110,49 @@ public class Player_Controller : MonoBehaviour
 
         horizontalInput = Input.GetAxis("Horizontal");
 
-        transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
-
-        float currentDirection = gameManager.currentDirection;
-        float loseDirectionLeft = gameManager.leftLoseRotation;
-        float loseDirectionRigth = gameManager.rigthLoseRotation;
-        float behindDirection = gameManager.behindDirection;
-        float playerDirection = transform.rotation.eulerAngles.y;
-       
-        if(currentDirection == 180)
+        if (playerIsChangingDirection == false)
         {
-            if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
+            transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
+
+            float currentDirection = gameManager.currentDirection;
+            float loseDirectionLeft = gameManager.leftLoseRotation;
+            float loseDirectionRigth = gameManager.rigthLoseRotation;
+            float behindDirection = gameManager.behindDirection;
+            float playerDirection = transform.rotation.eulerAngles.y;
+
+            if (currentDirection == 180)
             {
-                gameManager.CheckGameOver();
+                if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
+                {
+                    gameManager.CheckGameOver();
+                }
+                if (playerDirection <= loseDirectionLeft && playerDirection >= 0)
+                {
+                    gameManager.CheckGameOver();
+                }
             }
-            if (playerDirection <= loseDirectionLeft && playerDirection >= 0)
+            else
             {
-                gameManager.CheckGameOver();
+                if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
+                {
+                    gameManager.CheckGameOver();
+                }
+                if (playerDirection <= loseDirectionLeft && playerDirection >= behindDirection)
+                {
+                    gameManager.CheckGameOver();
+                }
             }
-        }
-        else
-        {
-            if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
-            {
-                gameManager.CheckGameOver();
-            }
-            if (playerDirection <= loseDirectionLeft && playerDirection >= behindDirection)
-            {
-                gameManager.CheckGameOver();
-            }
+
         }
 
-        
-        
-         
-        
-      
 
-     
+
+
+
+
+
+
+
     }
 
     private void RaycastDoorDetection()

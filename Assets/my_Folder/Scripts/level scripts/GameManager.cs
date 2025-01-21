@@ -25,11 +25,12 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] trigerPointsArray;
 
-    
+    public float speed = 1.0f;
 
 
-    
-    
+
+
+
 
     private void Start()
     {
@@ -50,14 +51,34 @@ public class GameManager : MonoBehaviour
 
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, rotationChange, playerReference.transform.rotation.z);
 
+       
+
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
      
         SetAngles();
     }
+
+
+    public IEnumerator Rotation(Vector3 targetDirection )
+    {
+        
+        
+        float singleStep = speed * Time.deltaTime;
+
+        Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetDirection, singleStep, 0.0f);
+
+        playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
+
+        yield return new WaitForSeconds(0.1f);
+    }
+
+
+
     public void RotatePlayerGun(float rotationChange)
     {
         //TODO: quiza esto deba estar en otro script.
-
+        
+        
         playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection + rotationChange, playerReference.transform.rotation.z);
 
         currentDirection = playerReference.transform.rotation.eulerAngles.y;
@@ -124,15 +145,6 @@ public class GameManager : MonoBehaviour
             rigthLoseRotation = 180;
             behindDirection = 270;
         }
-
-        
-        
-
-  
-
-
-      
-       
 
     }
 

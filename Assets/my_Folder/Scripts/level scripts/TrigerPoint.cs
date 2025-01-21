@@ -24,7 +24,7 @@ public class TrigerPoint : MonoBehaviour
 
 
     [SerializeField] private GameObject selectChangeDirectionPanel;
-    [SerializeField] private Button[] changeButtons;
+    [SerializeField] public Button[] changeButtons;
 
    
 
@@ -46,6 +46,8 @@ public class TrigerPoint : MonoBehaviour
     {
         //TODO: dar la posibilidad de girar a un lado o a otro -- 2 direcciones posibles.
         //TODO: dar la opcion de girar o seguir recto.
+
+        playerControllerScript.playerIsChangingDirection = true;
 
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
@@ -103,128 +105,25 @@ public class TrigerPoint : MonoBehaviour
                 }
 
             }
-           
 
-       
-            
+            gameManagerScript.EnableTrigerPointCollider();
+            DisableCollider();
 
-         
         }
-       
-   
+
     }
-    public void ChangeDirection(int direcction)
-    {
-        // direction = 1 = go straight
-        //direction = 2 = left
-        //direction = 3 rigth
-
-       
-
-        if (direcction == 1)
-        {
-           
-
-            gameManagerScript.RotatePlayer(gameManagerScript.currentDirection);
-
-
-        }
-        if (direcction == 2)
-        {
-            if (gameManagerScript.currentDirection == 0)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-
-            }
-            else if (gameManagerScript.currentDirection == 90)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-            else if (gameManagerScript.currentDirection == 270)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-            else if (gameManagerScript.currentDirection == 180)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-        }
-        if (direcction == 3)
-        {
-
-            if (gameManagerScript.currentDirection == 0)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-
-            }
-            else if (gameManagerScript.currentDirection == 90)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-            else if (gameManagerScript.currentDirection == 270)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-            else if(gameManagerScript.currentDirection == 180)
-            {
-                playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
-                StartCoroutine(EnablePlayerScript());
-                gameManagerScript.EnableTrigerPointCollider();
-                DisableCollider();
-            }
-
-
-
-         
-            
-
-            this.enabled = false;
-        }
-
-        Debug.Log(gameManagerScript.currentDirection);
-        foreach (Button buton in changeButtons)
-        {
-            buton.gameObject.SetActive(false);
-
-            
-        }
-        selectChangeDirectionPanel.SetActive(false);
-    }
-    private void ShowSelectDirectionPanel()
+  
+    public void ShowSelectDirectionPanel()
     {
         selectChangeDirectionPanel.SetActive(true);
     }
-    
-    
+    public void HideSelectDirectionPanel()
+    {
+        selectChangeDirectionPanel.SetActive(false);
+    }
+
+
+
 
     private void OnMouseOver()
     {
@@ -247,7 +146,7 @@ public class TrigerPoint : MonoBehaviour
       
     }
 
-    private IEnumerator EnablePlayerScript()
+    public IEnumerator EnablePlayerScript()
     {
         yield return new WaitForSeconds(1);
 
@@ -260,7 +159,7 @@ public class TrigerPoint : MonoBehaviour
             gameManagerScript.EnableTrigerPointCollider();
         }
     }
-    private void DisableCollider()
+    public void DisableCollider()
     {
         this.GetComponent<BoxCollider>().enabled = false;
 

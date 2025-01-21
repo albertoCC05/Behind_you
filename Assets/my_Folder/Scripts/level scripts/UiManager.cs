@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] GameObject winPanel;
     [SerializeField] private GameObject instructionsPanel; 
 
-    private Player_Controller playerController;
+    private Player_Controller playerControllerScript;
+    private GameManager gameManagerScript;
+    private TrigerPoint trigerPoint;
 
     
 
@@ -20,7 +23,9 @@ public class UiManager : MonoBehaviour
     private void Start()
     {
 
-        playerController = FindObjectOfType<Player_Controller>();
+        playerControllerScript = FindObjectOfType<Player_Controller>();
+        gameManagerScript = FindObjectOfType<GameManager>();
+        trigerPoint = FindObjectOfType<TrigerPoint>();
 
         HideGameOverPanel();
         HideWinPanel();
@@ -62,5 +67,113 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+
+
+    public void ChangeDirection(int direcction)
+    {
+        // direction = 1 = go straight
+        //direction = 2 = left
+        //direction = 3 rigth
+
+
+
+        if (direcction == 1)
+        {
+
+
+            gameManagerScript.RotatePlayer(gameManagerScript.currentDirection);
+            playerControllerScript.playerIsChangingDirection = false;
+           
+
+        }
+        if (direcction == 2)
+        {
+            if (gameManagerScript.currentDirection == 0)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(270);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+              
+            }
+            else if (gameManagerScript.currentDirection == 90)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(0f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+           
+
+            }
+            else if (gameManagerScript.currentDirection == 270)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(-180f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+               
+
+            }
+            else if (gameManagerScript.currentDirection == 180)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(90f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+              
+
+            }
+
+
+            playerControllerScript.playerIsChangingDirection = false;
+
+        }
+        if (direcction == 3)
+        {
+
+            if (gameManagerScript.currentDirection == 0)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(90f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+                
+
+            }
+            else if (gameManagerScript.currentDirection == 90)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(-180f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+            
+         
+            }
+            else if (gameManagerScript.currentDirection == 270)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(0f);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+           
+            }
+            else if (gameManagerScript.currentDirection == 180)
+            {
+                playerControllerScript.enabled = false;
+                gameManagerScript.RotatePlayer(270);
+                StartCoroutine(trigerPoint.EnablePlayerScript());
+             
+            }
+
+
+
+            playerControllerScript.playerIsChangingDirection = false;
+
+
+            // this.enabled = false;
+        }
+
+        Debug.Log(gameManagerScript.currentDirection);
+        foreach (Button buton in trigerPoint.changeButtons)
+        {
+            buton.gameObject.SetActive(false);
+
+
+        }
+        trigerPoint.HideSelectDirectionPanel();
+    }
 
 }

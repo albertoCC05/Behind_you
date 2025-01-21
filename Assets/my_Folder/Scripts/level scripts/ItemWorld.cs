@@ -20,7 +20,6 @@ public class ItemWorld : MonoBehaviour
         inventory = FindObjectOfType<Player_Controller>().GetPlayerInventory();
         inventoryUi = FindObjectOfType<UiInventory>();
       //  Debug.Log(FindObjectOfType<Player_Controller>().GetPlayerInventory());
-
     }
 
 

@@ -7,7 +7,7 @@ public class FinishDor : MonoBehaviour
    private Player_Controller playerController;
     private GameManager gameManager;
 
-    private void Start()
+    private void Start() 
     {
       playerController = FindObjectOfType<Player_Controller>();
       gameManager = FindObjectOfType<GameManager>();

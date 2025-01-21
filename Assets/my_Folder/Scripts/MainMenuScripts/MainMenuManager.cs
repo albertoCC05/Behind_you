@@ -6,4 +6,13 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject optionsPanel;
 
+    public void HideOptionsPanel()
+    {
+        optionsPanel.SetActive(false);
+    }
+    public void ShowOptionsPanel()
+    {
+        optionsPanel.SetActive(true);
+    }
+
 }

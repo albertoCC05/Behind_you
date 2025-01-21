@@ -963,6 +963,7 @@ MonoBehaviour:
   canOpenDoor: 0
   Flashligth: {fileID: 1340559216}
   numberOfBullets: 0
+  playerIsChangingDirection: 0
 --- !u!54 &127412052
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1763,8 +1764,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1108387968}
-        m_TargetAssemblyTypeName: TrigerPoint, Assembly-CSharp
+      - m_Target: {fileID: 523719277}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ChangeDirection
         m_Mode: 3
         m_Arguments:
@@ -6167,7 +6168,6 @@ MonoBehaviour:
   rigthLoseRotation: 0
   currentDirection: 0
   behindDirection: 0
-  currentDirection2: 0
   trigerPointsArray:
   - {fileID: 1108387963}
   - {fileID: 403654924}
@@ -6175,6 +6175,7 @@ MonoBehaviour:
   - {fileID: 1712947012}
   - {fileID: 2027347441}
   - {fileID: 1366385800}
+  speed: 1
 --- !u!4 &725459872
 Transform:
   m_ObjectHideFlags: 0
@@ -9485,7 +9486,7 @@ Transform:
   m_GameObject: {fileID: 1108387963}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.149, y: 0.593, z: -2.61}
+  m_LocalPosition: {x: -1.14, y: 0.593, z: -2.61}
   m_LocalScale: {x: 1.2004, y: 3.7739, z: 0.8095848}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9544,8 +9545,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7586211, y: 1, z: 0.6849739}
-  m_Center: {x: 0.017583508, y: 0, z: 0.011726235}
+  m_Size: {x: 0.7139674, y: 1, z: 0.5490004}
+  m_Center: {x: 0.025177576, y: 0, z: 0.007686317}
 --- !u!1 &1131062351
 GameObject:
   m_ObjectHideFlags: 0
@@ -12351,8 +12352,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1108387968}
-        m_TargetAssemblyTypeName: TrigerPoint, Assembly-CSharp
+      - m_Target: {fileID: 523719277}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ChangeDirection
         m_Mode: 3
         m_Arguments:
@@ -14110,8 +14111,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1108387968}
-        m_TargetAssemblyTypeName: TrigerPoint, Assembly-CSharp
+      - m_Target: {fileID: 523719277}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: ChangeDirection
         m_Mode: 3
         m_Arguments:
