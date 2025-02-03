@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -39,7 +40,8 @@ public class Player_Controller : MonoBehaviour
 
     public bool playerIsChangingDirection;
 
-
+    private int rigthLimit;
+   private int leftLimit;
 
 
 
@@ -55,7 +57,8 @@ public class Player_Controller : MonoBehaviour
 
        currentItem = new Item { type = Item.ItemType.nothing, amount = 1 }; ;
 
-
+        rigthLimit = (gameManager.directionAngles[gameManager.currentDirection] + 90) % 360;
+        leftLimit = (gameManager.directionAngles[gameManager.currentDirection] - 90) % 360;
     }
   
     private void Update()
@@ -81,6 +84,7 @@ public class Player_Controller : MonoBehaviour
 
         verticalInput = Input.GetAxis("Vertical");
         Vector3 movment = (verticalInput * transform.forward).normalized * playerSpeed;
+        
 
         if (playerIsChangingDirection == false)
         {
@@ -114,44 +118,17 @@ public class Player_Controller : MonoBehaviour
         {
             transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
 
-            float currentDirection = gameManager.currentDirection;
-            float loseDirectionLeft = gameManager.leftLoseRotation;
-            float loseDirectionRigth = gameManager.rigthLoseRotation;
-            float behindDirection = gameManager.behindDirection;
-            float playerDirection = transform.rotation.eulerAngles.y;
+            Debug.Log((gameManager.directionAngles[gameManager.currentDirection] + 90) % 360 );
+            Debug.Log((gameManager.directionAngles[gameManager.currentDirection] + 270) % 360);
 
-            if (currentDirection == 180)
+            if ((Vector3.SignedAngle( gameManager.leftDirections[gameManager.currentDirection] , transform.forward, Vector3.up) + 360) % 360 > 180)
             {
-                if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
-                {
-                    gameManager.CheckGameOver();
-                }
-                if (playerDirection <= loseDirectionLeft && playerDirection >= 0)
-                {
-                    gameManager.CheckGameOver();
-                }
+                gameManager.CheckGameOver();
             }
-            else
-            {
-                if (playerDirection >= loseDirectionRigth && playerDirection <= behindDirection)
-                {
-                    gameManager.CheckGameOver();
-                }
-                if (playerDirection <= loseDirectionLeft && playerDirection >= behindDirection)
-                {
-                    gameManager.CheckGameOver();
-                }
-            }
+
+
 
         }
-
-
-
-
-
-
-
-
 
     }
 

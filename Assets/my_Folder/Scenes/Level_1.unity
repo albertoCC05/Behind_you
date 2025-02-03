@@ -6164,10 +6164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerReference: {fileID: 127412046}
-  leftLoseRotation: 0
-  rigthLoseRotation: 0
   currentDirection: 0
-  behindDirection: 0
+  nextDirection: 0
   trigerPointsArray:
   - {fileID: 1108387963}
   - {fileID: 403654924}

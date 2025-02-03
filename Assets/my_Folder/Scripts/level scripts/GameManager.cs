@@ -2,22 +2,71 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
+
+public enum Direction
+{
+    Forward,
+    Left,
+    Rigth,
+    Back,
+
+}
+
+    
 
 
 
 
 public class GameManager : MonoBehaviour
 {
+
+    public Dictionary<Direction, Vector3> directions = new Dictionary<Direction, Vector3>()
+    { {Direction.Forward, Vector3.forward },
+      { Direction.Left, Vector3.left},
+      {Direction.Rigth, Vector3.right },
+       { Direction.Back, Vector3.back},
+    };
+
+    public Dictionary<Direction, int> directionAngles = new Dictionary<Direction, int>()
+  
+
+    {
+        {Direction.Forward, 0 },
+        {Direction.Left, 270 },
+        {Direction.Rigth, 90 },
+        {Direction.Back, 180 },
+    };
+
+    public Dictionary<Direction, Vector3> leftDirections = new Dictionary<Direction, Vector3>()
+  { {Direction.Forward, Vector3.left },
+    { Direction.Left, Vector3.back },
+    {Direction.Back, Vector3.right },
+    {Direction.Rigth, Vector3.forward },
+
+
+    };
+
+    public Dictionary<Direction, Direction> BackDirections = new Dictionary<Direction, Direction>()
+  { {Direction.Forward, Direction.Back },
+    { Direction.Left, Direction.Rigth },
+    {Direction.Back, Direction.Forward },
+    {Direction.Rigth, Direction.Left },
+
+
+    };
+
     private bool isGameOver;
     private UiManager uiManager;
     private TrigerPoint trigerPointScript;
 
     [SerializeField] private GameObject playerReference;
 
-    public float leftLoseRotation;
-    public float rigthLoseRotation;
-    public float currentDirection;
-    public float behindDirection;
+   // public float leftLoseRotation;
+   // public float rigthLoseRotation;
+    public Direction currentDirection;
+    public Direction nextDirection;
+  //  public float behindDirection;
 
     
 
@@ -25,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] trigerPointsArray;
 
-    public float speed = 1.0f;
+    public float speed = 5.0f;
 
 
 
@@ -38,115 +87,58 @@ public class GameManager : MonoBehaviour
         playerController = FindObjectOfType<Player_Controller>();
         isGameOver = false;
         Time.timeScale = 1;
-        StartSetLoseAngles();
 
-        Debug.Log(currentDirection);
+        currentDirection = Direction.Forward;
+
+        
         
     }
 
-    public void RotatePlayer(float rotationChange)
+
+    public IEnumerator Rotation(Direction targetDirection )
     {
+        playerReference.transform.forward = directions[currentDirection]; 
 
-        
-
-        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, rotationChange, playerReference.transform.rotation.z);
-
-       
-
-        currentDirection = playerReference.transform.rotation.eulerAngles.y;
-     
-        SetAngles();
-    }
-
-
-    public IEnumerator Rotation(Vector3 targetDirection )
-    {
-        
-        
         float singleStep = speed * Time.deltaTime;
+        Vector3 targetVector = directions[targetDirection];
+     
 
-        Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetDirection, singleStep, 0.0f);
-
-        playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
-
-        yield return new WaitForSeconds(0.1f);
-    }
-
-
-
-    public void RotatePlayerGun(float rotationChange)
-    {
-        //TODO: quiza esto deba estar en otro script.
-        
-        
-        playerReference.transform.rotation = Quaternion.Euler(playerReference.transform.rotation.x, currentDirection + rotationChange, playerReference.transform.rotation.z);
-
-        currentDirection = playerReference.transform.rotation.eulerAngles.y;
-
-      
-       
-
-        SetAngles();
-    }
-   
-    private void StartSetLoseAngles()
-    {
-       
-
-      
-        currentDirection = 0;
-        leftLoseRotation = 270;
-        rigthLoseRotation = 90;
-        behindDirection = 180;
-
-       
-
-
-    }
-    public void SetAngles()
-    {
-
-      
-       
-
-        if (currentDirection % 360 == 0)
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.05f)
         {
-            
+            Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
 
-            leftLoseRotation = 270;
-            rigthLoseRotation = 90;
-            behindDirection = 180;
-        }
-        if (currentDirection % 360 == 180)
-        {
-            
+            Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
 
-            rigthLoseRotation = 270;
-            leftLoseRotation = 90;
-            behindDirection = 360;
+            playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
 
-           
+            yield return new WaitForSeconds(0.01f);
         }
 
-        if (currentDirection % 360 == 270)
+        playerReference.transform.forward = targetVector;
+        currentDirection = targetDirection;
+    }
+    public IEnumerator RotationGun(Direction targetDirection)
+    {
+        currentDirection = targetDirection;
+
+        float singleStep = speed * Time.deltaTime;
+        Vector3 targetVector = directions[targetDirection];
+
+
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.05f)
         {
            
+            Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
 
-            rigthLoseRotation = 0;
-            leftLoseRotation = 180;
-            behindDirection = 90;
+            playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
 
+            yield return new WaitForSeconds(0.01f);
         }
 
-        if (currentDirection % 360 == 90)
-        {
-            
-            leftLoseRotation = 360;
-            rigthLoseRotation = 180;
-            behindDirection = 270;
-        }
-
+        playerReference.transform.forward = targetVector;
+       
     }
+
 
     public void EnableTrigerPointCollider()
     {
@@ -160,7 +152,8 @@ public class GameManager : MonoBehaviour
 
         if (playerController.currentItem.type == Item.ItemType.gun && playerController.numberOfBullets > 0)
         {
-            RotatePlayerGun(-180);
+            nextDirection = BackDirections[currentDirection];
+            StartCoroutine(RotationGun(nextDirection));
             playerController.numberOfBullets--;
             uiManager.UpdateNumberOfBullets(playerController.numberOfBullets);
             EnableTrigerPointCollider();

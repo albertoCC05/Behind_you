@@ -81,40 +81,44 @@ public class UiManager : MonoBehaviour
         {
 
 
-            gameManagerScript.RotatePlayer(gameManagerScript.currentDirection);
+            StartCoroutine(gameManagerScript.Rotation(gameManagerScript.currentDirection));
             playerControllerScript.playerIsChangingDirection = false;
            
 
         }
         if (direcction == 2)
         {
-            if (gameManagerScript.currentDirection == 0)
+            if (gameManagerScript.currentDirection == Direction.Forward)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
+                gameManagerScript.nextDirection = Direction.Left;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
               
             }
-            else if (gameManagerScript.currentDirection == 90)
+            else if (gameManagerScript.currentDirection == Direction.Rigth)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
+                gameManagerScript.nextDirection = Direction.Forward;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
            
 
             }
-            else if (gameManagerScript.currentDirection == 270)
+            else if (gameManagerScript.currentDirection == Direction.Left)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
+                gameManagerScript.nextDirection = Direction.Back;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
                
 
             }
-            else if (gameManagerScript.currentDirection == 180)
+            else if (gameManagerScript.currentDirection == Direction.Back)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
+                gameManagerScript.nextDirection = Direction.Rigth;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
               
 
@@ -127,33 +131,37 @@ public class UiManager : MonoBehaviour
         if (direcction == 3)
         {
 
-            if (gameManagerScript.currentDirection == 0)
+            if (gameManagerScript.currentDirection == Direction.Forward)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(90f);
+                gameManagerScript.nextDirection = Direction.Rigth;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
                 
 
             }
-            else if (gameManagerScript.currentDirection == 90)
+            else if (gameManagerScript.currentDirection == Direction.Rigth)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(-180f);
+                gameManagerScript.nextDirection = Direction.Back;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
             
          
             }
-            else if (gameManagerScript.currentDirection == 270)
+            else if (gameManagerScript.currentDirection == Direction.Left)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(0f);
+                gameManagerScript.nextDirection = Direction.Forward;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
            
             }
-            else if (gameManagerScript.currentDirection == 180)
+            else if (gameManagerScript.currentDirection == Direction.Back)
             {
                 playerControllerScript.enabled = false;
-                gameManagerScript.RotatePlayer(270);
+                gameManagerScript.nextDirection = Direction.Left;
+                StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
                 StartCoroutine(trigerPoint.EnablePlayerScript());
              
             }
@@ -163,7 +171,7 @@ public class UiManager : MonoBehaviour
             playerControllerScript.playerIsChangingDirection = false;
 
 
-            // this.enabled = false;
+             this.enabled = false;
         }
 
         Debug.Log(gameManagerScript.currentDirection);

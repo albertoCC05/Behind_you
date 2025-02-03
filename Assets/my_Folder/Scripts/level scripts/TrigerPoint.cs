@@ -53,7 +53,7 @@ public class TrigerPoint : MonoBehaviour
         {
             ShowSelectDirectionPanel();
 
-            if (gameManagerScript.currentDirection == 0 )
+            if (gameManagerScript.currentDirection == Direction.Forward )
             {
                 Debug.Log($"direction = {360}");
 
@@ -66,7 +66,7 @@ public class TrigerPoint : MonoBehaviour
                 }
                 
             }
-            if (gameManagerScript.currentDirection == 90)
+            if (gameManagerScript.currentDirection == Direction.Rigth)
             {
                 Debug.Log($"direction = {90}");
 
@@ -79,7 +79,7 @@ public class TrigerPoint : MonoBehaviour
                 }
 
             }
-            if (gameManagerScript.currentDirection == 270)
+            if (gameManagerScript.currentDirection == Direction.Left)
             {
                 Debug.Log($"direction = {270}");
 
@@ -92,7 +92,7 @@ public class TrigerPoint : MonoBehaviour
                 }
 
             }
-            if (gameManagerScript.currentDirection == 180)
+            if (gameManagerScript.currentDirection == Direction.Back)
             {
                 Debug.Log($"direction = {180}");
 
@@ -139,7 +139,7 @@ public class TrigerPoint : MonoBehaviour
         Debug.Log("Hello");
 
         playerControllerScript.enabled = false;
-        gameManagerScript.RotatePlayer(newCurrentDirection);
+      //  gameManagerScript.RotatePlayer(newCurrentDirection);
 
         StartCoroutine(EnablePlayerScript());
 
