@@ -103,19 +103,23 @@ public class GameManager : MonoBehaviour
         Vector3 targetVector = directions[targetDirection];
      
 
-        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.05f)
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.1f)
         {
-            Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
+           // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
 
             Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
 
             playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
 
             yield return new WaitForSeconds(0.01f);
+
+            Debug.Log("girando");
         }
 
         playerReference.transform.forward = targetVector;
         currentDirection = targetDirection;
+
+        Debug.Log("fin");
     }
     public IEnumerator RotationGun(Direction targetDirection)
     {
@@ -133,10 +137,11 @@ public class GameManager : MonoBehaviour
             playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
 
             yield return new WaitForSeconds(0.01f);
+          
         }
 
         playerReference.transform.forward = targetVector;
-       
+        
     }
 
 
