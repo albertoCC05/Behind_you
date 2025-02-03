@@ -3,27 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DataPersistance : MonoBehaviour
-{
+{  
     public bool level1 = false;
     public bool level2 = false;
    
 
     private const string SAVE_FILE_NAME = "/save-file.txt";
     public bool saveFileExist = false;
-
-
+   
     private void Start()
     {
         if (System.IO.File.Exists(Application.dataPath + SAVE_FILE_NAME))
         {
-            saveFileExist = true;
+           saveFileExist = true;
         }
         else
         {
             saveFileExist = false;
         }
-
-       
     }
     public void Save()
     {
@@ -43,7 +40,6 @@ public class DataPersistance : MonoBehaviour
     }
     public void Load()
     {
-        
         if (saveFileExist)
         {
             string jsonContent = System.IO.File.ReadAllText(Application.dataPath + SAVE_FILE_NAME);
@@ -52,10 +48,7 @@ public class DataPersistance : MonoBehaviour
 
             level1 = saveObject.level1Completed;
             level2 = saveObject.level2Completed;
-            
-
         }
-        
     }
     public void DeleteSaveFiles()
     {
@@ -63,8 +56,5 @@ public class DataPersistance : MonoBehaviour
         {
             System.IO.File.Delete(Application.dataPath + SAVE_FILE_NAME);
         }
-
-
     }
-
 }
