@@ -10,8 +10,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TextMeshProUGUI numberOfBullets;
     [SerializeField] GameObject winPanel;
-    [SerializeField] private GameObject instructionsPanel; 
-
+    
     private Player_Controller playerControllerScript;
     private GameManager gameManagerScript;
     private TrigerPoint trigerPoint;
@@ -52,16 +51,7 @@ public class UiManager : MonoBehaviour
     {
         winPanel.SetActive(true);
     }
-    public void HideInstrucctions()
-    {
-        Time.timeScale = 1f;
-        instructionsPanel.SetActive(false);
-    }
-    private void ShowInstrucctions()
-    {
-        Time.timeScale = 0f;
-        instructionsPanel.SetActive(true);
-    }
+   
     public void RestartLevelB()
     {
         SceneManager.LoadScene(0);
@@ -93,7 +83,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Left;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+                
               
             }
             else if (gameManagerScript.currentDirection == Direction.Rigth)
@@ -101,7 +91,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Forward;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+               
            
 
             }
@@ -110,7 +100,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Back;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+               
                
 
             }
@@ -119,7 +109,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Rigth;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+              
               
 
             }
@@ -136,7 +126,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Rigth;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+                
                 
 
             }
@@ -145,7 +135,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Back;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+                
             
          
             }
@@ -154,7 +144,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Forward;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+               
            
             }
             else if (gameManagerScript.currentDirection == Direction.Back)
@@ -162,7 +152,7 @@ public class UiManager : MonoBehaviour
                 playerControllerScript.enabled = false;
                 gameManagerScript.nextDirection = Direction.Left;
                 StartCoroutine(gameManagerScript.Rotation(gameManagerScript.nextDirection));
-                StartCoroutine(trigerPoint.EnablePlayerScript());
+                
              
             }
 

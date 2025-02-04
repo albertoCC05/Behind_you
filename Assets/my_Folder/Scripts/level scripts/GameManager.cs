@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
 
         float singleStep = speed * Time.deltaTime;
         Vector3 targetVector = directions[targetDirection];
-     
 
-        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.1f)
+ 
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
         {
            // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
 
@@ -113,23 +113,26 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
 
-            Debug.Log("girando");
+            
+
+            
         }
+
 
         playerReference.transform.forward = targetVector;
         currentDirection = targetDirection;
+        playerController.enabled = true;
 
-        Debug.Log("fin");
     }
     public IEnumerator RotationGun(Direction targetDirection)
     {
-        currentDirection = targetDirection;
+        
 
         float singleStep = speed * Time.deltaTime;
         Vector3 targetVector = directions[targetDirection];
 
 
-        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.05f)
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
         {
            
             Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
@@ -140,8 +143,12 @@ public class GameManager : MonoBehaviour
           
         }
 
-        playerReference.transform.forward = targetVector;
         
+        playerReference.transform.forward = targetVector;
+        currentDirection = targetDirection;
+        Debug.Log("He terminado de girar (gun)");
+        
+
     }
 
 

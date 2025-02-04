@@ -20,7 +20,7 @@ public class TrigerPoint : MonoBehaviour
     [SerializeField] private Button[] rotationChangeIf0Buttons;
     [SerializeField] private Button[] rotationChangeIf180Buttons;
 
-  
+    public bool isChangingDirection;
 
 
     [SerializeField] private GameObject selectChangeDirectionPanel;
@@ -47,11 +47,13 @@ public class TrigerPoint : MonoBehaviour
         //TODO: dar la posibilidad de girar a un lado o a otro -- 2 direcciones posibles.
         //TODO: dar la opcion de girar o seguir recto.
 
-        playerControllerScript.playerIsChangingDirection = true;
+        playerControllerScript.enabled = false;
 
         if (other.gameObject.CompareTag("Player") && rotationChanged == false )
         {
             ShowSelectDirectionPanel();
+
+            isChangingDirection = true;
 
             if (gameManagerScript.currentDirection == Direction.Forward )
             {
@@ -122,43 +124,7 @@ public class TrigerPoint : MonoBehaviour
         selectChangeDirectionPanel.SetActive(false);
     }
 
-
-
-
-    private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0) && playerControllerScript.canOpenDoor == true ) 
-        {
-            DoorTriggerPoint();
-        }
-    }
-
-    private void DoorTriggerPoint()
-    {
-        rotationChanged = true;
-        Debug.Log("Hello");
-
-        playerControllerScript.enabled = false;
-      //  gameManagerScript.RotatePlayer(newCurrentDirection);
-
-        StartCoroutine(EnablePlayerScript());
-
-      
-    }
-
-    public IEnumerator EnablePlayerScript()
-    {
-        yield return new WaitForSeconds(1);
-
-        playerControllerScript.enabled = true;
-        rotationChanged = false;
-       
-        if (this.gameObject.CompareTag("Door"))
-        {
-            GameObject.Destroy(this.gameObject);
-            gameManagerScript.EnableTrigerPointCollider();
-        }
-    }
+ 
     public void DisableCollider()
     {
         this.GetComponent<BoxCollider>().enabled = false;

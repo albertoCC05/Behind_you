@@ -2,27 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataPersistance : MonoBehaviour
+public static class DataPersistance 
 {  
-    public bool level1 = false;
-    public bool level2 = false;
+    public static bool level1 = false;
+    public static bool level2 = false;
    
 
     private const string SAVE_FILE_NAME = "/save-file.txt";
-    public bool saveFileExist = false;
+    public static bool saveFileExist;
    
-    private void Start()
-    {
-        if (System.IO.File.Exists(Application.dataPath + SAVE_FILE_NAME))
-        {
-           saveFileExist = true;
-        }
-        else
-        {
-            saveFileExist = false;
-        }
-    }
-    public void Save()
+  
+    public static void Save()
     {
         SaveObject saveObject = new SaveObject
         {
@@ -33,14 +23,13 @@ public class DataPersistance : MonoBehaviour
 
         string jsonContent = JsonUtility.ToJson(saveObject);
 
-        System.IO.File.WriteAllText(Application.dataPath + SAVE_FILE_NAME,
-        jsonContent);
+        System.IO.File.WriteAllText(Application.dataPath + SAVE_FILE_NAME,  jsonContent);
 
         saveFileExist = true;
     }
-    public void Load()
+    public static void Load()
     {
-        if (saveFileExist)
+        if (System.IO.File.Exists(Application.dataPath + SAVE_FILE_NAME))
         {
             string jsonContent = System.IO.File.ReadAllText(Application.dataPath + SAVE_FILE_NAME);
 
@@ -48,13 +37,19 @@ public class DataPersistance : MonoBehaviour
 
             level1 = saveObject.level1Completed;
             level2 = saveObject.level2Completed;
+
+            saveFileExist = true;
         }
     }
-    public void DeleteSaveFiles()
+    public static void DeleteSaveFiles()
     {
-        if (saveFileExist)
+        if (System.IO.File.Exists(Application.dataPath + SAVE_FILE_NAME))
         {
+            Debug.Log("Datos Borrados");
+            DataPersistance.level1 = false;
+            DataPersistance.level2 = false;
             System.IO.File.Delete(Application.dataPath + SAVE_FILE_NAME);
+            saveFileExist = false;
         }
     }
 }

@@ -63,8 +63,10 @@ public class Player_Controller : MonoBehaviour
   
     private void Update()
     {
+
+            Rotation();
         
-        Rotation();
+       
 
         RaycastDoorDetection();
         FlashligthEffect();
@@ -72,7 +74,10 @@ public class Player_Controller : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        PlayerMovment();
+       
+        
+            PlayerMovment();
+     
     }
 
 

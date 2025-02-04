@@ -7,29 +7,26 @@ using UnityEngine.UI;
 public class ChapterSelection : MonoBehaviour
 {
 
-    private DataPersistance dataPersistance;
 
     [SerializeField] private Button chapter2Button;
     [SerializeField] private Button chapter3Button;
 
     private void Start()
     {
-        dataPersistance = FindObjectOfType<DataPersistance>();
-
-        if (dataPersistance.saveFileExist)
+        if (DataPersistance.saveFileExist)
         {
-            dataPersistance.Load();
+            Debug.Log("Hola");
+            DataPersistance.Load();
         }
         ActivateChapterButtons();
     }
     public void Return()
     {
         SceneManager.LoadScene(0);
-        
     }
     public void ActivateChapterButtons()
     {
-        if (dataPersistance.level1)
+        if (DataPersistance.level1)
         {
             chapter2Button.interactable = true;
         }
@@ -37,7 +34,7 @@ public class ChapterSelection : MonoBehaviour
         {
             chapter2Button.interactable = false;
         }
-        if (dataPersistance.level2) 
+        if (DataPersistance.level2) 
         {
             chapter3Button.interactable = true;
         }
@@ -45,5 +42,17 @@ public class ChapterSelection : MonoBehaviour
         {
             chapter3Button.interactable = false;
         }
+    }
+    public void Level1Button()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void Level2Button()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void Level3Button()
+    {
+        SceneManager.LoadScene(4);
     }
 }

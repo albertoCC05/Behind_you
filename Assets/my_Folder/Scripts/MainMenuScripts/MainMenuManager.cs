@@ -10,14 +10,16 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject creditsPanel;
     [SerializeField] Button continueButton;
 
-    private DataPersistance dataPersistance;
+   
 
 
     private void Start()
     {
-        dataPersistance = FindObjectOfType<DataPersistance>();
+        DataPersistance.Load();
         ContinueButtonInteractable();
 
+       
+        
     }
     public void HideOptionsPanel()
     {
@@ -37,8 +39,10 @@ public class MainMenuManager : MonoBehaviour
     }
     public void NewGameButton()
     {
-        dataPersistance.DeleteSaveFiles();
+        DataPersistance.DeleteSaveFiles();
         SceneManager.LoadScene(1);
+
+       
     }
     public void ContinueButtton()
     {
@@ -46,13 +50,15 @@ public class MainMenuManager : MonoBehaviour
     }
    public void ContinueButtonInteractable()
     {
-        if (dataPersistance.saveFileExist == true)
+        if (DataPersistance.saveFileExist == true)
         {
+            Debug.Log("Patata");
             continueButton.gameObject.SetActive(true);
             continueButton.interactable = true;
         }
         else
         {
+          
             continueButton.interactable = false;
             continueButton.gameObject.SetActive(false);
         }
