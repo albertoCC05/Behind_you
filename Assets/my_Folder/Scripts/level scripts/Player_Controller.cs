@@ -69,7 +69,7 @@ public class Player_Controller : MonoBehaviour
        
 
         RaycastDoorDetection();
-        FlashligthEffect();
+       
      
     }
     private void FixedUpdate()
@@ -209,6 +209,7 @@ public class Player_Controller : MonoBehaviour
    public void SetCurrentItem(int SetItem)
    {
         currentItem = inventory.itemList[SetItem];
+        FlashligthEffect();
    }
 
    public void FlashligthEffect()

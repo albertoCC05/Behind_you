@@ -1,1 +1,1 @@
-{"level1Completed":true,"level2Completed":true}
+{"level1Completed":true,"level2Completed":false}

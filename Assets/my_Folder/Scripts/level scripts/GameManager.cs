@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     private TrigerPoint trigerPointScript;
 
     [SerializeField] private GameObject playerReference;
+    [SerializeField] private GameObject monsterReference;
 
    // public float leftLoseRotation;
    // public float rigthLoseRotation;
@@ -159,6 +160,46 @@ public class GameManager : MonoBehaviour
             triggerP.GetComponent<BoxCollider>().enabled = true;
         }
     }
+
+    public IEnumerator RotationGameOver (Direction targetDirection)
+    {
+
+
+        float singleStep = speed * Time.deltaTime;
+        Vector3 targetVector = directions[targetDirection];
+
+
+        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
+        {
+
+
+           
+
+            // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
+
+            Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
+
+            playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
+
+            yield return new WaitForSeconds(0.01f);
+
+
+
+
+        }
+
+
+        playerReference.transform.forward = targetVector;
+      
+        playerController.enabled = true;
+
+        Instantiate(monsterReference, playerReference.transform);
+
+        isGameOver = true;
+        uiManager.ShowGameOverPanel();
+        Time.timeScale = 0;
+
+    }
     public void CheckGameOver()
     {
 
@@ -172,9 +213,13 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            isGameOver = true;
+
+            
+
+           /* isGameOver = true;
             uiManager.ShowGameOverPanel();
-            Time.timeScale = 0;
+            Time.timeScale = 0; */
+            RotationGameOver(BackDirections[currentDirection]);
         }
      
 
