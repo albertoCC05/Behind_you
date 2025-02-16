@@ -43,6 +43,8 @@ public class Player_Controller : MonoBehaviour
     private int rigthLimit;
    private int leftLimit;
 
+    [SerializeField] private GameObject[] playerHandsArray;
+ 
 
 
 
@@ -56,6 +58,9 @@ public class Player_Controller : MonoBehaviour
         UiInventory.Instance.SetInventory(inventory);
 
        currentItem = new Item { type = Item.ItemType.nothing, amount = 1 }; ;
+
+        HideAllHands();
+        ShowIdleHand();
 
         rigthLimit = (gameManager.directionAngles[gameManager.currentDirection] + 90) % 360;
         leftLimit = (gameManager.directionAngles[gameManager.currentDirection] - 90) % 360;
@@ -209,20 +214,50 @@ public class Player_Controller : MonoBehaviour
    public void SetCurrentItem(int SetItem)
    {
         currentItem = inventory.itemList[SetItem];
-        FlashligthEffect();
-   }
+        HideAllHands();
 
-   public void FlashligthEffect()
-    {
+        if (currentItem.type == Item.ItemType.gun) 
+        {
+            ShowGunHand();
+        }
         if (currentItem.type == Item.ItemType.flashligth)
         {
-            Flashligth.SetActive(true);
+            ShowFlashligthHand();
         }
-        else
+        if (currentItem.type == Item.ItemType.key)
         {
-            Flashligth.SetActive(false);
+            ShowKeyHand();
         }
+    }
 
+    private void HideAllHands()
+    {
+        foreach (GameObject hand in playerHandsArray)
+        {
+            hand.SetActive(false);
+        }
+        Flashligth.SetActive(false);
+    }
+    
+
+     private void ShowFlashligthHand()
+    {
+          
+            Flashligth.SetActive(true);
+            playerHandsArray[1].SetActive(true);
        
+       
+    }
+    private void ShowIdleHand()
+    {
+        playerHandsArray[0].SetActive(true);
+    }
+    private void ShowGunHand()
+    {
+        playerHandsArray[3].SetActive(true);
+    }
+    private void ShowKeyHand()
+    {
+        playerHandsArray[2].SetActive(true);
     }
 }
