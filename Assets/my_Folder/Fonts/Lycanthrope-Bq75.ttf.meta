@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3de3759ec6baf9f43bde57a3fe31210e
+guid: d091d1a3161168e43b6b5e2b3893af3e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Help Me
+  - Lycanthrope
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

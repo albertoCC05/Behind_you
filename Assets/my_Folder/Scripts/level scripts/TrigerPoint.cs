@@ -55,6 +55,8 @@ public class TrigerPoint : MonoBehaviour
 
             isChangingDirection = true;
 
+            other.gameObject.transform.position = new Vector3 (transform.position.x, other.gameObject.transform.position.y, transform.position.z);
+
             if (gameManagerScript.currentDirection == Direction.Forward )
             {
                 Debug.Log($"direction = {360}");

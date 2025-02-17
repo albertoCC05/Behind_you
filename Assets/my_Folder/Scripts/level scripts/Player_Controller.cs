@@ -128,11 +128,11 @@ public class Player_Controller : MonoBehaviour
         {
             transform.Rotate(Vector3.up * rotationPlayerSpeed * horizontalInput * Time.deltaTime);
 
-            Debug.Log((gameManager.directionAngles[gameManager.currentDirection] + 90) % 360 );
-            Debug.Log((gameManager.directionAngles[gameManager.currentDirection] + 270) % 360);
+         
 
             if ((Vector3.SignedAngle( gameManager.leftDirections[gameManager.currentDirection] , transform.forward, Vector3.up) + 360) % 360 > 180)
             {
+               
                 gameManager.CheckGameOver();
             }
 

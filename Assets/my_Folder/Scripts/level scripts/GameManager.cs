@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.SceneManagement;
 
 public enum Direction
 {
@@ -13,7 +14,7 @@ public enum Direction
 
 }
 
-    
+
 
 
 
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     };
 
     public Dictionary<Direction, int> directionAngles = new Dictionary<Direction, int>()
-  
+
 
     {
         {Direction.Forward, 0 },
@@ -56,26 +57,32 @@ public class GameManager : MonoBehaviour
 
     };
 
-    private bool isGameOver;
+    private bool gameOverIsSet;
     private UiManager uiManager;
     private TrigerPoint trigerPointScript;
 
     [SerializeField] private GameObject playerReference;
     [SerializeField] private GameObject monsterReference;
 
-   // public float leftLoseRotation;
-   // public float rigthLoseRotation;
+    // public float leftLoseRotation;
+    // public float rigthLoseRotation;
     public Direction currentDirection;
     public Direction nextDirection;
-  //  public float behindDirection;
+    //  public float behindDirection;
 
-    
+
 
     private Player_Controller playerController;
 
     public GameObject[] trigerPointsArray;
 
-    public float speed = 5.0f;
+    private float speed = 1.0f;
+    private float gameOverSpeed = 10.0f;
+
+    [SerializeField] private Animator gunHandAnimator;
+     private int currentLevel;
+
+
 
 
 
@@ -86,14 +93,31 @@ public class GameManager : MonoBehaviour
     {
         uiManager = FindObjectOfType<UiManager>();
         playerController = FindObjectOfType<Player_Controller>();
-        isGameOver = false;
-        Time.timeScale = 1;
+      
+        if (SceneManager.GetActiveScene().name == "Level_1" )
+        {
+            currentLevel = 1;
+        }
 
+        StartCurrentLevel();
+
+
+    }
+
+    private void StartCurrentLevel()
+    {
+        gameOverIsSet = false;
+        Time.timeScale = 1;
         currentDirection = Direction.Forward;
 
-        
-        
+        if (currentLevel == 1)
+        {
+            playerController.enabled = false;
+            uiManager.ShowTutorialPanel();
+            uiManager.StartTutorialText();
+        }
     }
+
 
 
     public IEnumerator Rotation(Direction targetDirection )
@@ -144,9 +168,10 @@ public class GameManager : MonoBehaviour
           
         }
 
-        
+        gunHandAnimator.SetTrigger("shoot");
         playerReference.transform.forward = targetVector;
         currentDirection = targetDirection;
+        playerController.enabled = true;
         Debug.Log("He terminado de girar (gun)");
         
 
@@ -164,62 +189,88 @@ public class GameManager : MonoBehaviour
     public IEnumerator RotationGameOver (Direction targetDirection)
     {
 
+        playerController.enabled = false;
 
-        float singleStep = speed * Time.deltaTime;
+        float singleStep = gameOverSpeed * Time.deltaTime;
         Vector3 targetVector = directions[targetDirection];
 
+  
 
-        while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
+        if (gameOverIsSet == false)
         {
+            gameOverIsSet = true;
 
+            Vector3 spawnPositionMonster = playerReference.transform.position + new Vector3(0, -1.7f, 0) - 0.8f * directions[currentDirection];
+
+            GameObject monster = Instantiate(monsterReference, spawnPositionMonster, Quaternion.identity);
+            monster.transform.forward = directions[currentDirection];
+
+            while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
+            {
+
+
+
+
+                // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
+
+                Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
+
+                playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
+
+                yield return new WaitForSeconds(0.0001f);
+
+
+
+
+            }
+
+
+            playerReference.transform.forward = targetVector;
+
+            playerController.enabled = true;
+
+         
+
+
+            StartCoroutine(ShowGameOverPanelCorroutine());
+            
 
            
-
-            // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
-
-            Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
-
-            playerReference.transform.rotation = Quaternion.LookRotation(newDirection);
-
-            yield return new WaitForSeconds(0.01f);
-
-
-
-
         }
 
+       
 
-        playerReference.transform.forward = targetVector;
-      
-        playerController.enabled = true;
+    }
 
-        Instantiate(monsterReference, playerReference.transform);
-
-        isGameOver = true;
+    private IEnumerator ShowGameOverPanelCorroutine()
+    {
+        yield return new WaitForSeconds (2);
         uiManager.ShowGameOverPanel();
-        Time.timeScale = 0;
-
     }
     public void CheckGameOver()
     {
 
         if (playerController.currentItem.type == Item.ItemType.gun && playerController.numberOfBullets > 0)
         {
+            playerController.enabled = false;
             nextDirection = BackDirections[currentDirection];
             StartCoroutine(RotationGun(nextDirection));
             playerController.numberOfBullets--;
             uiManager.UpdateNumberOfBullets(playerController.numberOfBullets);
             EnableTrigerPointCollider();
+
+          
         }
         else
         {
 
-            
 
-           /* isGameOver = true;
-            uiManager.ShowGameOverPanel();
-            Time.timeScale = 0; */
-            RotationGameOver(BackDirections[currentDirection]);
+
+
+           
+           
+
+            StartCoroutine(RotationGameOver(BackDirections[currentDirection]));
         }
      
 

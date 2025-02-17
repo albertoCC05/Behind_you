@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class UiManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
@@ -15,10 +16,18 @@ public class UiManager : MonoBehaviour
     private GameManager gameManagerScript;
     private TrigerPoint trigerPoint;
 
-    
+    [SerializeField] private GameObject tutorialPanel;
 
+    [SerializeField] private TextMeshProUGUI tutorialText;
+    [SerializeField] private TextMeshProUGUI speakerName;
 
-   
+    public int tutorialState;
+
+    // 1 startTutorial == el primer panel que se muestra en el nivel 1 y funciona a modo de tutroial
+    // 2 flashligth tutorial 
+    //3 gun and bullets tutorial
+    // 4 key tutorial
+
     private void Start()
     {
 
@@ -57,8 +66,7 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-
-
+ 
     public void ChangeDirection(int direcction)
     {
         // direction = 1 = go straight
@@ -165,13 +173,62 @@ public class UiManager : MonoBehaviour
         }
 
         Debug.Log(gameManagerScript.currentDirection);
-        foreach (Button buton in trigerPoint.changeButtons)
+        foreach (Button button in trigerPoint.changeButtons)
         {
-            buton.gameObject.SetActive(false);
+            button.gameObject.SetActive(false);
 
 
         }
         trigerPoint.HideSelectDirectionPanel();
+    }
+
+    public void ShowTutorialPanel()
+    {
+
+        tutorialPanel.SetActive(true);
+
+
+    }
+    public void HideTutorialPanel()
+    {
+        tutorialPanel.SetActive(false);
+    }
+    public void StartTutorialText()
+    {
+        tutorialState = 1;
+        tutorialText.text = "arf... arf.. QUE DEMONIOS LE PASA A ESTA CASA!!!?, menos mal que he podido escapar de esa cosa a tiempo, tengo que buscar una forma de salir de aqui, muevete con W,A,D y";
+        speakerName.text = "Milia";
+
+    }
+
+    public void nextButtonFunction()
+    {
+
+
+        if (tutorialState == 1)
+        {
+            tutorialText.text = "Milia, Ven aqui, aqui estaras a salvo";
+            tutorialState = 2;
+        }
+        if (tutorialState == 2)
+        {
+            tutorialText.text = "AAAA!! Quien eres!? y porque sabes mi nombre!?";
+            speakerName.text = "Milia";
+        }
+        if (tutorialState == 3)
+        {
+            tutorialText.text = "Luego te lo explico, pero primero busca la llave que abre esa puerta que tienes en frente para llegar hasta mi, prometo que no intentare matarte puedes fiarte de mi. te ayudare a escapar";
+        }
+        if (tutorialState == 4)
+        {
+            tutorialText.text = "Esta bien...";
+            speakerName.text = "Milia";
+            HideTutorialPanel();
+            tutorialState = 0;
+            playerControllerScript.enabled = true;
+            
+        }
+
     }
 
 }
