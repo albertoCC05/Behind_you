@@ -10,19 +10,45 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject creditsPanel;
     [SerializeField] Button continueButton;
 
+    [SerializeField] AudioSource cameraAudiosource;
+
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Slider soundEfectsSlider;
+
    
 
 
     private void Start()
     {
         DataPersistance.Load();
+       
+
+       HideOptionsPanel();
+
+        SetMusic();
+       
         ContinueButtonInteractable();
 
+        cameraAudiosource.Play();
+
+        musicSlider.value = cameraAudiosource.volume;
        
         
     }
+    public void SetMusic()
+    {
+        DataPersistance.LoadMusic();
+        cameraAudiosource.volume = DataPersistance.musicValue;
+        musicSlider.value = DataPersistance.musicValue;
+        soundEfectsSlider.value = DataPersistance.fxValue;
+    }
+    public void SliderMusic()
+    {
+        cameraAudiosource.volume = musicSlider.value;
+    }
     public void HideOptionsPanel()
     {
+        DataPersistance.SaveMusic(musicSlider.value, soundEfectsSlider.value);
         optionsPanel.SetActive(false);
     }
     public void ShowOptionsPanel()
@@ -43,6 +69,11 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
 
        
+    }
+    public void ExitButton()
+    {
+        Application.Quit();
+
     }
     public void ContinueButtton()
     {

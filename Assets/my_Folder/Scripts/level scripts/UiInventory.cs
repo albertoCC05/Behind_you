@@ -92,7 +92,7 @@ public class UiInventory : MonoBehaviour
     }
     public void ChangeCurrentItemText()
     {
-        currentItemText.text = $"Item: {playerController.currentItem.type}";
+        currentItemText.text = $"Objeto: {playerController.currentItem.type}";
     }
 
 

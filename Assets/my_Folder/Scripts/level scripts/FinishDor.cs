@@ -18,7 +18,7 @@ public class FinishDor : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player") && playerController.currentItem.type == Item.ItemType.key)
+        if (collision.gameObject.CompareTag("Player") && playerController.currentItem.type == Item.ItemType.llave)
         {
 
             gameManager.Win();

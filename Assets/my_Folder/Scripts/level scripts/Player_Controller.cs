@@ -57,7 +57,7 @@ public class Player_Controller : MonoBehaviour
         inventory = new Inventory();
         UiInventory.Instance.SetInventory(inventory);
 
-       currentItem = new Item { type = Item.ItemType.nothing, amount = 1 }; ;
+       currentItem = new Item { type = Item.ItemType.nada, amount = 1 }; ;
 
         HideAllHands();
         ShowIdleHand();
@@ -73,7 +73,7 @@ public class Player_Controller : MonoBehaviour
         
        
 
-        RaycastDoorDetection();
+       
        
      
     }
@@ -142,22 +142,7 @@ public class Player_Controller : MonoBehaviour
 
     }
 
-    private void RaycastDoorDetection()
-    {
-        bool raycastDoor = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1.5f, doorLayerMask);
-
-        Color raycastHitColor = (raycastDoor) ? Color.green : Color.magenta;
-        Debug.DrawRay(transform.position, transform.forward * 1.5f, raycastHitColor);
-
-        if (raycastDoor)
-        {
-            canOpenDoor = true;
-        }
-        else
-        {
-           canOpenDoor = false;
-        }
-    }
+  
 
     public Inventory GetPlayerInventory()
     {
@@ -173,30 +158,55 @@ public class Player_Controller : MonoBehaviour
         {
             if (other.GetComponent<ItemWorld>().itemType == 1)
             {
-                Item saveItem = new Item { type = Item.ItemType.gun, amount = 1 };
+                Item saveItem = new Item { type = Item.ItemType.pistola, amount = 1 };
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
+
+                if (gameManager.currentLevel == 1)
+                {
+                    this.enabled = false;
+                    uiManager.tutorialState = 6;
+                    uiManager.nextButtonFunction();
+                    uiManager.ShowTutorialPanel();
+                }
 
                
             }
             if (other.GetComponent<ItemWorld>().itemType == 2)
             {
-                Item saveItem = new Item { type = Item.ItemType.flashligth, amount = 1 };
+                Item saveItem = new Item { type = Item.ItemType.linterna, amount = 1 };
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-                
+                if (gameManager.currentLevel == 1)
+                {
+                    this.enabled = false;
+                    uiManager.tutorialState = 5;
+                    uiManager.nextButtonFunction();
+                    uiManager.ShowTutorialPanel();
+                }
+
+
             }
             if (other.GetComponent<ItemWorld>().itemType == 3)
             {
-                Item saveItem = new Item { type = Item.ItemType.key, amount = 1 };
+                Item saveItem = new Item { type = Item.ItemType.llave, amount = 1 };
 
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-               
+
+                if (gameManager.currentLevel == 1)
+                {
+                    this.enabled = false;
+                    uiManager.tutorialState = 7;
+                    uiManager.nextButtonFunction();
+                    uiManager.ShowTutorialPanel();
+                }
+
+
             }
             if (other.GetComponent<ItemWorld>().itemType == 4)
             {
@@ -216,15 +226,15 @@ public class Player_Controller : MonoBehaviour
         currentItem = inventory.itemList[SetItem];
         HideAllHands();
 
-        if (currentItem.type == Item.ItemType.gun) 
+        if (currentItem.type == Item.ItemType.pistola) 
         {
             ShowGunHand();
         }
-        if (currentItem.type == Item.ItemType.flashligth)
+        if (currentItem.type == Item.ItemType.linterna)
         {
             ShowFlashligthHand();
         }
-        if (currentItem.type == Item.ItemType.key)
+        if (currentItem.type == Item.ItemType.llave)
         {
             ShowKeyHand();
         }

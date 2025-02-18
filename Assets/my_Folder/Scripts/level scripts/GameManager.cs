@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour
     private float gameOverSpeed = 10.0f;
 
     [SerializeField] private Animator gunHandAnimator;
-     private int currentLevel;
+     public int currentLevel;
 
-
+    [SerializeField] private ParticleSystem gunParticleSistem;
 
 
 
@@ -156,6 +156,11 @@ public class GameManager : MonoBehaviour
         float singleStep = speed * Time.deltaTime;
         Vector3 targetVector = directions[targetDirection];
 
+        Vector3 spawnPositionMonster = playerReference.transform.position + new Vector3(0, -1.7f, 0) - 2f * directions[currentDirection];
+
+        GameObject monster = Instantiate(monsterReference, spawnPositionMonster, Quaternion.identity);
+        monster.transform.forward = directions[currentDirection];
+
 
         while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
         {
@@ -169,10 +174,17 @@ public class GameManager : MonoBehaviour
         }
 
         gunHandAnimator.SetTrigger("shoot");
+        
         playerReference.transform.forward = targetVector;
         currentDirection = targetDirection;
         playerController.enabled = true;
         Debug.Log("He terminado de girar (gun)");
+
+        yield return new WaitForSeconds(0.3f);
+
+        Destroy(monster);
+        uiManager.gunAudiosource.Play();
+        gunParticleSistem.Play();
         
 
     }
@@ -228,6 +240,7 @@ public class GameManager : MonoBehaviour
             playerReference.transform.forward = targetVector;
 
             playerController.enabled = true;
+            uiManager.monsterAudiosource.Play();
 
          
 
@@ -250,7 +263,7 @@ public class GameManager : MonoBehaviour
     public void CheckGameOver()
     {
 
-        if (playerController.currentItem.type == Item.ItemType.gun && playerController.numberOfBullets > 0)
+        if (playerController.currentItem.type == Item.ItemType.pistola && playerController.numberOfBullets > 0)
         {
             playerController.enabled = false;
             nextDirection = BackDirections[currentDirection];

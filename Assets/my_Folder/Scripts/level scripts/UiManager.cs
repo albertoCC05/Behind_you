@@ -21,12 +21,19 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tutorialText;
     [SerializeField] private TextMeshProUGUI speakerName;
 
+    [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider soundEfectsSlider;
+    [SerializeField] private AudioSource musicAudiosource;
+    [SerializeField] public AudioSource gunAudiosource;
+    [SerializeField] public AudioSource monsterAudiosource;
+
+
+
     public int tutorialState;
 
-    // 1 startTutorial == el primer panel que se muestra en el nivel 1 y funciona a modo de tutroial
-    // 2 flashligth tutorial 
-    //3 gun and bullets tutorial
-    // 4 key tutorial
+    
 
     private void Start()
     {
@@ -34,6 +41,9 @@ public class UiManager : MonoBehaviour
         playerControllerScript = FindObjectOfType<Player_Controller>();
         gameManagerScript = FindObjectOfType<GameManager>();
         trigerPoint = FindObjectOfType<TrigerPoint>();
+
+        pausePanel.SetActive(false);
+        optionsPanel.SetActive(false);
 
         HideGameOverPanel();
         HideWinPanel();
@@ -50,7 +60,7 @@ public class UiManager : MonoBehaviour
     }
     public void UpdateNumberOfBullets(int numberOfBullet)
     {
-        numberOfBullets.text = $"Bullets = {numberOfBullet}";
+        numberOfBullets.text = $"Balas = {numberOfBullet}";
     }
     public void HideWinPanel()
     {
@@ -60,13 +70,47 @@ public class UiManager : MonoBehaviour
     {
         winPanel.SetActive(true);
     }
-   
-    public void RestartLevelB()
+    public void ExitButton()
     {
         SceneManager.LoadScene(0);
     }
-
- 
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void GoToChapterSelection()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void PauseButton()
+    {
+        pausePanel.SetActive(true);
+        Time.timeScale = 0;
+    }
+    public void ContinueButton()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;
+    }
+    public void ShowOptionsButton()
+    {
+        optionsPanel.SetActive(true);
+        pausePanel.SetActive(false);
+    }
+    public void MusicSlider()
+    {
+        musicAudiosource.volume = musicSlider.value;
+    }
+    public void SoundEfectsSlider()
+    {
+        monsterAudiosource.volume = soundEfectsSlider.value;
+        gunAudiosource.volume = soundEfectsSlider.value;
+    }
+    public void HideOptionsButton()
+    {
+        optionsPanel.SetActive(false);
+        pausePanel.SetActive(true);
+    }
     public void ChangeDirection(int direcction)
     {
         // direction = 1 = go straight
@@ -196,7 +240,7 @@ public class UiManager : MonoBehaviour
     public void StartTutorialText()
     {
         tutorialState = 1;
-        tutorialText.text = "arf... arf.. QUE DEMONIOS LE PASA A ESTA CASA!!!?, menos mal que he podido escapar de esa cosa a tiempo, tengo que buscar una forma de salir de aqui, muevete con W,A,D y";
+        tutorialText.text = "QUE DEMONIOS LE PASA A ESTA CASA!!!? Menos mal que he podido escapar de esa cosa a tiempo, tengo que buscar una forma de salir de aquí, ( muévete con W,A,D ). ";
         speakerName.text = "Milia";
 
     }
@@ -204,31 +248,58 @@ public class UiManager : MonoBehaviour
     public void nextButtonFunction()
     {
 
-
+       
         if (tutorialState == 1)
         {
-            tutorialText.text = "Milia, Ven aqui, aqui estaras a salvo";
+            tutorialText.text = "Milia, Ven aquí, detrás de la puerta que tienes en frente, aquí estarás a salvo";
+            speakerName.text = "???";
             tutorialState = 2;
         }
-        if (tutorialState == 2)
+        else if (tutorialState == 2)
         {
-            tutorialText.text = "AAAA!! Quien eres!? y porque sabes mi nombre!?";
+            tutorialText.text = "AAAA!! ¿Quién eres!? ¿Y por qué sabes mi nombre!?";
             speakerName.text = "Milia";
+            tutorialState = 3;
         }
-        if (tutorialState == 3)
+        else if (tutorialState == 3)
         {
-            tutorialText.text = "Luego te lo explico, pero primero busca la llave que abre esa puerta que tienes en frente para llegar hasta mi, prometo que no intentare matarte puedes fiarte de mi. te ayudare a escapar";
+            tutorialText.text = "Luego te lo explico, pero primero busca la llave que abre esa puerta que tienes en frente para llegar hasta mí. Prometo que no intentaré matarte, a diferencia de esa cosa, puedes fiarte de mí. Te ayudaré a escapar. Y una última cosa, por lo que más quieras, no te des la vuelta";
+            speakerName.text = "???";
+            tutorialState = 4;
         }
-        if (tutorialState == 4)
+        else if (tutorialState == 4)
         {
             tutorialText.text = "Esta bien...";
             speakerName.text = "Milia";
+            tutorialState = 0;
+        }
+        else if (tutorialState == 5)
+        {
+            tutorialText.text = "¡Una linterna! Me servirá para ver mejor (puedes equipártela desde el inventario para alumbrar zonas oscuras)";
+            speakerName.text = "Milia";
+            tutorialState = 0;
+        }
+        else if (tutorialState == 6)
+        {
+            tutorialText.text = "La antigua pistola de papa de cuando trabajaba de policía y una bala, quizá pueda usarla contra esa cosa que me está siguiendo todo el rato (equípate la pistola desde el inventario, tal vez sirva contra el monstruo)";
+            speakerName.text = "Milia";
+            tutorialState = 0;
+        }
+        else if (tutorialState == 7)
+        {
+            tutorialText.text = "¡Al fin! La llave para salir de aquí, ahora a buscar la puerta. (busca la puerta de salida y ábrela equipándote la llave y acercándote a la puerta)";
+            speakerName.text = "Milia";
+            tutorialState = 0;
+        }
+        else if (tutorialState == 0)
+        {
             HideTutorialPanel();
             tutorialState = 0;
             playerControllerScript.enabled = true;
-            
         }
 
     }
+
+    
 
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public static class DataPersistance 
 {  
@@ -9,8 +10,13 @@ public static class DataPersistance
    
 
     private const string SAVE_FILE_NAME = "/save-file.txt";
+    private const string SAVE_MUSIC_FILE = "/save-musicValue.txt";
     public static bool saveFileExist;
-   
+
+    public static float musicValue;
+    public static float fxValue;
+
+    
   
     public static void Save()
     {
@@ -39,6 +45,35 @@ public static class DataPersistance
             level2 = saveObject.level2Completed;
 
             saveFileExist = true;
+        }
+    }
+    public static void SaveMusic(float musicVolume, float fxVolume)
+    {
+        musicValue = musicVolume;
+        fxValue = fxVolume;
+
+        SaveObjectMusic saveMusic = new SaveObjectMusic
+        {
+            music = musicValue,
+            fx = fxValue,
+        };
+
+        string jsonMusicContent = JsonUtility.ToJson(saveMusic);
+        System.IO.File.WriteAllText(Application.dataPath + SAVE_MUSIC_FILE, jsonMusicContent);
+
+ 
+    }
+    public static void LoadMusic()
+    {
+        if (System.IO.File.Exists(Application.dataPath + SAVE_MUSIC_FILE))
+        {
+            string jsonMusicContent = System.IO.File.ReadAllText(Application.dataPath + SAVE_MUSIC_FILE);
+
+            SaveObjectMusic saveMusic = JsonUtility.FromJson<SaveObjectMusic>(jsonMusicContent);
+
+            musicValue = saveMusic.music;
+            fxValue = saveMusic.fx;
+
         }
     }
     public static void DeleteSaveFiles()

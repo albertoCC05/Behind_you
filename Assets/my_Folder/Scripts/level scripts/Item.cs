@@ -6,11 +6,11 @@ public class Item
 {
     public enum ItemType
     {
-        gun,
-        flashligth,
-        bullets,
-        key,
-        nothing,
+        pistola,
+        linterna,
+        balas,
+        llave,
+        nada,
 
     }
 
