@@ -163,7 +163,7 @@ public class Player_Controller : MonoBehaviour
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-                if (gameManager.currentLevel == 1)
+                if (gameManager.currentLevelIsLevel1 == true)
                 {
                     this.enabled = false;
                     uiManager.tutorialState = 6;
@@ -180,7 +180,7 @@ public class Player_Controller : MonoBehaviour
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-                if (gameManager.currentLevel == 1)
+                if (gameManager.currentLevelIsLevel1 == true)
                 {
                     this.enabled = false;
                     uiManager.tutorialState = 5;
@@ -198,7 +198,7 @@ public class Player_Controller : MonoBehaviour
                 uiInventory.UpdateInventory(saveItem);
 
 
-                if (gameManager.currentLevel == 1)
+                if (gameManager.currentLevelIsLevel1 == true)
                 {
                     this.enabled = false;
                     uiManager.tutorialState = 7;
