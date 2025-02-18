@@ -16,6 +16,10 @@ public class FinishDor : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
        
     }
+
+
+    // This script is for th detection of the colition of the player with the finish dor, if player has the key when he collides with the dor, the player wins
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player") && playerController.currentItem.type == Item.ItemType.llave)

@@ -16,6 +16,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Slider soundEfectsSlider;
 
    
+    
 
 
     private void Start()

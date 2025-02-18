@@ -86,6 +86,7 @@ public class Player_Controller : MonoBehaviour
     }
 
 
+    //Movment of player 
 
 
     private void PlayerMovment()
@@ -115,8 +116,9 @@ public class Player_Controller : MonoBehaviour
 
        
     }
-   
-   
+
+
+    //Rotation of the player and detection  of game over
 
     private void Rotation()
     {
@@ -148,6 +150,9 @@ public class Player_Controller : MonoBehaviour
     {
         return inventory;
     }
+
+
+    //Detection Collision with items to pick them
 
     private void OnTriggerEnter(Collider other)
     {
@@ -239,6 +244,9 @@ public class Player_Controller : MonoBehaviour
             ShowKeyHand();
         }
     }
+
+
+    //Functios for show the current hand of the player depending of the item tha you have equiped
 
     private void HideAllHands()
     {

@@ -38,20 +38,14 @@ public class UiInventory : MonoBehaviour
         }
         Instance = this;
     }
-    private void Update()
-    {
-        
-        if (Input.GetKeyUp(KeyCode.L))
-        {
-            ShowInventory();
-        }
-
-        
-    }
+  
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
     }
+
+    // Updates the inventory Ui when you get a new item.
+
     public void UpdateInventory(Item item)
     {
         
@@ -63,6 +57,9 @@ public class UiInventory : MonoBehaviour
 
 
     }
+
+    //Shows th inventory panel
+
     public void ShowInventory()
     {
 
@@ -73,6 +70,9 @@ public class UiInventory : MonoBehaviour
        
         
     }
+
+    //Hides the inventory panel
+
     public void HideInventory()
     {
 
@@ -84,12 +84,18 @@ public class UiInventory : MonoBehaviour
     {
         HideInventory();
     }
+
+    //Equips an item when you pres his button on inventory panel
+
     public void UseItemButton(int CurrentItem)
     {
         playerController.SetCurrentItem(CurrentItem);
         Debug.Log(playerController.currentItem.type);
         ChangeCurrentItemText();
     }
+
+    //Changes the text of the current item that you have equiped
+
     public void ChangeCurrentItemText()
     {
         currentItemText.text = $"Objeto: {playerController.currentItem.type}";
