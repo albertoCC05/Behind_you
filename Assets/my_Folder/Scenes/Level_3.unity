@@ -1252,7 +1252,9 @@ MonoBehaviour:
   rotationChangeIf270Buttons:
   - {fileID: 1428899096}
   - {fileID: 1623349854}
-  rotationChangeIf0Buttons: []
+  rotationChangeIf0Buttons:
+  - {fileID: 1428899096}
+  - {fileID: 1623349854}
   rotationChangeIf180Buttons:
   - {fileID: 262498606}
   - {fileID: 1428899096}
