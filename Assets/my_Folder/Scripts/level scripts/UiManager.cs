@@ -60,7 +60,7 @@ public class UiManager : MonoBehaviour
     }
     public void UpdateNumberOfBullets(int numberOfBullet)
     {
-        numberOfBullets.text = $"Balas = {numberOfBullet}";
+        numberOfBullets.text = $"{numberOfBullet}";
     }
     public void HideWinPanel()
     {
