@@ -226,6 +226,12 @@ public class UiManager : MonoBehaviour
         trigerPoint.HideSelectDirectionPanel();
     }
 
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
     public void ShowTutorialPanel()
     {
 

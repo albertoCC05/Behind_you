@@ -29,6 +29,7 @@ public class UiInventory : MonoBehaviour
         HideInventory();
         isActive = false;
         ChangeCurrentItemText();
+        DesactivateAllButtonsAtStart();
     }
     private void Awake()
     {
@@ -56,6 +57,13 @@ public class UiInventory : MonoBehaviour
         }
 
 
+    }
+    private void DesactivateAllButtonsAtStart()
+    {
+        foreach (Button button in inventoryButtonArray)
+        {
+            button.interactable = false;
+        }
     }
 
     //Shows th inventory panel
