@@ -13,7 +13,7 @@ public class UiInventory : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
     private Inventory inventory;
 
-    private bool isActive;
+    
 
     public static UiInventory Instance { get; private set; }
     private Player_Controller playerController;
@@ -27,7 +27,7 @@ public class UiInventory : MonoBehaviour
         playerController = FindObjectOfType<Player_Controller>();
 
         HideInventory();
-        isActive = false;
+        
         ChangeCurrentItemText();
         DesactivateAllButtonsAtStart();
     }
