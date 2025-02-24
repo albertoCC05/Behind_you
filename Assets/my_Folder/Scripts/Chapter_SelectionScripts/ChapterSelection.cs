@@ -10,6 +10,7 @@ public class ChapterSelection : MonoBehaviour
 
     [SerializeField] private Button chapter2Button;
     [SerializeField] private Button chapter3Button;
+    [SerializeField] private AudioSource audioSource;
 
 
 
@@ -25,6 +26,9 @@ public class ChapterSelection : MonoBehaviour
             DataPersistance.Load();
         }
         ActivateChapterButtons();
+
+        DataPersistance.LoadMusic();
+        audioSource.volume = DataPersistance.musicValue;
     }
     public void Return()
     {

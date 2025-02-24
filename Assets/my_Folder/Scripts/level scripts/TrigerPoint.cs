@@ -111,7 +111,7 @@ public class TrigerPoint : MonoBehaviour
             }
 
             gameManagerScript.EnableTrigerPointCollider();
-            DisableCollider();
+            DisableMeshRenderer();
 
         }
 
@@ -127,9 +127,9 @@ public class TrigerPoint : MonoBehaviour
     }
 
  
-    public void DisableCollider()
+    public void DisableMeshRenderer()
     {
-        this.GetComponent<BoxCollider>().enabled = false;
+        this.GetComponent<MeshRenderer>().enabled = false;
 
        
     }

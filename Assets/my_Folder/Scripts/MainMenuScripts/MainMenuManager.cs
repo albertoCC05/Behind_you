@@ -24,7 +24,7 @@ public class MainMenuManager : MonoBehaviour
         DataPersistance.Load();
        
 
-       HideOptionsPanel();
+       
 
         SetMusic();
        
@@ -38,6 +38,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void SetMusic()
     {
+        Debug.Log("SetMusicLLamada");
         DataPersistance.LoadMusic();
         cameraAudiosource.volume = DataPersistance.musicValue;
         musicSlider.value = DataPersistance.musicValue;

@@ -60,6 +60,9 @@ public static class DataPersistance
         };
 
         string jsonMusicContent = JsonUtility.ToJson(saveMusic);
+
+        Debug.Log($"guardado: {jsonMusicContent}");
+
         System.IO.File.WriteAllText(Application.dataPath + SAVE_MUSIC_FILE, jsonMusicContent);
 
  
@@ -69,6 +72,8 @@ public static class DataPersistance
         if (System.IO.File.Exists(Application.dataPath + SAVE_MUSIC_FILE))
         {
             string jsonMusicContent = System.IO.File.ReadAllText(Application.dataPath + SAVE_MUSIC_FILE);
+
+            Debug.Log($"cargado: {jsonMusicContent}");
 
             SaveObjectMusic saveMusic = JsonUtility.FromJson<SaveObjectMusic>(jsonMusicContent);
 

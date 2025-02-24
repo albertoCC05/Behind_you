@@ -47,7 +47,21 @@ public class UiManager : MonoBehaviour
 
         HideGameOverPanel();
         HideWinPanel();
+
+        SetMusic();
        
+    }
+
+    public void SetMusic()
+    {
+        DataPersistance.LoadMusic();
+
+        musicSlider.value = DataPersistance.musicValue;
+        musicAudiosource.volume = DataPersistance.musicValue;
+        soundEfectsSlider.value = DataPersistance.fxValue;
+        gunAudiosource.volume = DataPersistance.fxValue;
+        monsterAudiosource.volume = DataPersistance.fxValue;
+        
     }
 
     public void ShowGameOverPanel()
@@ -109,6 +123,7 @@ public class UiManager : MonoBehaviour
     public void HideOptionsButton()
     {
         optionsPanel.SetActive(false);
+        DataPersistance.SaveMusic(musicSlider.value, soundEfectsSlider.value);
         pausePanel.SetActive(true);
     }
     public void ChangeDirection(int direcction)

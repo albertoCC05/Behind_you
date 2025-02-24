@@ -103,6 +103,8 @@ public class GameManager : MonoBehaviour
 
         StartCurrentLevel();
 
+       
+
 
     }
 
@@ -155,6 +157,7 @@ public class GameManager : MonoBehaviour
 
         float singleStep = speed * Time.deltaTime;
         Vector3 targetVector = directions[targetDirection];
+        playerController.enabled = false;
 
         Vector3 spawnPositionMonster = playerReference.transform.position + new Vector3(0, -1.7f, 0) - 2f * directions[currentDirection];
 
@@ -185,7 +188,8 @@ public class GameManager : MonoBehaviour
         Destroy(monster);
         uiManager.gunAudiosource.Play();
         gunParticleSistem.Play();
-        
+        playerController.enabled = true;
+
 
     }
 
@@ -194,7 +198,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject triggerP in trigerPointsArray)
         {
-            triggerP.GetComponent<BoxCollider>().enabled = true;
+            triggerP.GetComponent<MeshRenderer>().enabled = true;
         }
     }
 
