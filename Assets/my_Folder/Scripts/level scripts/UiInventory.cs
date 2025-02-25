@@ -66,7 +66,6 @@ public class UiInventory : MonoBehaviour
         }
     }
 
-    //Shows th inventory panel
 
     public void ShowInventory()
     {
@@ -79,7 +78,7 @@ public class UiInventory : MonoBehaviour
         
     }
 
-    //Hides the inventory panel
+ 
 
     public void HideInventory()
     {

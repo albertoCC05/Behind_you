@@ -8,18 +8,17 @@ public class ItemWorld : MonoBehaviour
     private UiInventory inventoryUi;
     [SerializeField] public int itemType;
     
-
     // 1 = gun
     // 2 = flashligth
     // 3 = bullets
     // 4 = key
 
-
     private void Start()
     {
         inventory = FindObjectOfType<Player_Controller>().GetPlayerInventory();
         inventoryUi = FindObjectOfType<UiInventory>();
-      //  Debug.Log(FindObjectOfType<Player_Controller>().GetPlayerInventory());
+     
+
     }
 
 

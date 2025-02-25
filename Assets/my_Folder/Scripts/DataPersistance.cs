@@ -17,7 +17,7 @@ public static class DataPersistance
     public static float fxValue;
 
     // I made two functions of save and load, one saves the progres of the player, and the other saves the value of music and sound efects
-    // I have to fix the data persistance of music and sound efects.
+    
   
     public static void Save()
     {

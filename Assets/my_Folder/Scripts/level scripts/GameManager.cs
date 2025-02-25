@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // This function is for rotate the player when he selects a direction on a trigger point
 
     public IEnumerator Rotation(Direction targetDirection )
     {
@@ -136,7 +137,7 @@ public class GameManager : MonoBehaviour
  
         while (Vector3.Angle(playerReference.transform.forward, targetVector) > 0.25f)
         {
-           // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
+           
 
             Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
 
@@ -229,7 +230,7 @@ public class GameManager : MonoBehaviour
 
 
 
-                // Debug.Log($"ANGLE DIF {Vector3.Angle(playerReference.transform.forward, targetVector) < 0.05f} - TF {playerReference.transform.forward} - target {targetVector} - angle {Vector3.Angle(playerReference.transform.forward, targetVector)} ");
+                
 
                 Vector3 newDirection = Vector3.RotateTowards(playerReference.transform.forward, targetVector, singleStep, 0.0f);
 
