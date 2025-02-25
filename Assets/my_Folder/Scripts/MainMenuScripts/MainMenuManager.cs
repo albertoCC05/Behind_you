@@ -15,6 +15,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider soundEfectsSlider;
 
+    [SerializeField] private GameObject creditPanle;
+
    
     
 
@@ -24,7 +26,7 @@ public class MainMenuManager : MonoBehaviour
         DataPersistance.Load();
        
 
-       
+       HideCredits();
 
         SetMusic();
        
@@ -43,6 +45,14 @@ public class MainMenuManager : MonoBehaviour
         cameraAudiosource.volume = DataPersistance.musicValue;
         musicSlider.value = DataPersistance.musicValue;
         soundEfectsSlider.value = DataPersistance.fxValue;
+    }
+    public void ShowCredits()
+    {
+        creditPanle.SetActive(true);
+    }
+    public void HideCredits()
+    {
+        creditPanle.SetActive(false);
     }
     public void SliderMusic()
     {

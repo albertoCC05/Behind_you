@@ -168,12 +168,12 @@ public class Player_Controller : MonoBehaviour
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-                if (gameManager.currentLevelIsLevel1 == true)
+                if (gameManager.currentLevel == 1)
                 {
                     this.enabled = false;
-                    uiManager.tutorialState = 6;
+                    uiManager.textState = 6;
                     uiManager.nextButtonFunction();
-                    uiManager.ShowTutorialPanel();
+                    uiManager.ShowTextPanel();
                 }
 
                
@@ -185,12 +185,12 @@ public class Player_Controller : MonoBehaviour
                 inventory.AddItem(saveItem);
                 uiInventory.UpdateInventory(saveItem);
 
-                if (gameManager.currentLevelIsLevel1 == true)
+                if (gameManager.currentLevel == 1)
                 {
                     this.enabled = false;
-                    uiManager.tutorialState = 5;
+                    uiManager.textState = 5;
                     uiManager.nextButtonFunction();
-                    uiManager.ShowTutorialPanel();
+                    uiManager.ShowTextPanel();
                 }
 
 
@@ -203,12 +203,12 @@ public class Player_Controller : MonoBehaviour
                 uiInventory.UpdateInventory(saveItem);
 
 
-                if (gameManager.currentLevelIsLevel1 == true)
+                if (gameManager.currentLevel == 1)
                 {
                     this.enabled = false;
-                    uiManager.tutorialState = 7;
+                    uiManager.textState = 7;
                     uiManager.nextButtonFunction();
-                    uiManager.ShowTutorialPanel();
+                    uiManager.ShowTextPanel();
                 }
 
 

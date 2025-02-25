@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     private float gameOverSpeed = 10.0f;
 
     [SerializeField] private Animator gunHandAnimator;
-     public bool currentLevelIsLevel1;
+     public int currentLevel;
 
     [SerializeField] private ParticleSystem gunParticleSistem;
 
@@ -94,32 +94,34 @@ public class GameManager : MonoBehaviour
         uiManager = FindObjectOfType<UiManager>();
         playerController = FindObjectOfType<Player_Controller>();
 
-        currentLevelIsLevel1 = false;
-      
-        if (SceneManager.GetActiveScene().name == "Level_1" )
-        {
-            currentLevelIsLevel1 = true;
-        }
-
+        SetCurrentLevel();
         StartCurrentLevel();
 
-       
-
+    }
+    private void SetCurrentLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "Level_1")
+        {
+            currentLevel = 1;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level_2")
+        {
+            currentLevel = 2;
+        }
+        else if (SceneManager.GetActiveScene().name == "Level_3")
+        {
+            currentLevel = 3;
+        }
 
     }
-
     private void StartCurrentLevel()
     {
         gameOverIsSet = false;
         Time.timeScale = 1;
         currentDirection = Direction.Forward;
+        uiManager.StartText();
+        uiManager.ShowTextPanel();
 
-        if (currentLevelIsLevel1 == true)
-        {
-            playerController.enabled = false;
-            uiManager.ShowTutorialPanel();
-            uiManager.StartTutorialText();
-        }
     }
 
 
